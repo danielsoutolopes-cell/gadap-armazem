@@ -1,10 +1,12 @@
 import io
+from uuid import UUID
 from datetime import datetime, date
 from typing import Optional, List, Dict, Any
-from fastapi import APIRouter, HTTPException, Query, Response
+from fastapi import APIRouter, HTTPException, Query, Response, Depends
 from fastapi.responses import StreamingResponse
 import pandas as pd
 from app.core.supabase_client import supabase as supabase_admin
+from app.core.auth import get_tenant_from_auth_header
 
 router = APIRouter(tags=["Central de Relatórios Setoriais 360 & Excel"])
 
@@ -28,7 +30,8 @@ def generate_styled_excel(df: pd.DataFrame, sheet_title: str) -> io.BytesIO:
 async def export_stock_movement(
     start_date: Optional[str] = Query(None),
     end_date: Optional[str] = Query(None),
-    operation_type: Optional[str] = Query(None) # INBOUND, OUTBOUND, ALL
+    operation_type: Optional[str] = Query(None), # INBOUND, OUTBOUND, ALL
+    tenant_id: UUID = Depends(get_tenant_from_auth_header)
 ):
     """Extrato Completo de Movimentação Logística (Inbound/Outbound) em Excel formatado"""
     data = [
@@ -91,7 +94,7 @@ async def export_stock_movement(
     )
 
 @router.get("/reports/export/dock-sla")
-async def export_dock_sla():
+async def export_dock_sla(tenant_id: UUID = Depends(get_tenant_from_auth_header)):
     """Relatório Operacional de SLA de Doca (Tempo de Espera, Carga e Descarga)"""
     data = [
         {"Doca": "DOCA-01", "Tipo": "DESCARGA (INBOUND)", "Veículo": "Carreta Baú (Scania)", "Placa": "BRA2E19", "Chegada": "08:15", "Início Operação": "08:30", "Fim Operação": "10:15", "Tempo Total (min)": 105, "SLA Meta (min)": 120, "Status SLA": "DENTRO DA META"},
@@ -109,7 +112,7 @@ async def export_dock_sla():
     )
 
 @router.get("/reports/export/empty-racks")
-async def export_empty_racks():
+async def export_empty_racks(tenant_id: UUID = Depends(get_tenant_from_auth_header)):
     """Relatório de Posições Vazias e Ocupação de Porta-Paletes por Rua"""
     data = [
         {"Rua": "RUA 01", "Prédio": "P01", "Nível": "N01", "Endereço": "RUA01-P01-N01", "Capacidade Peso (kg)": 1200, "Altura Livre (m)": 2.10, "Tipo": "DRY", "Status": "LIVRE", "Dias Vaga": 14},
@@ -127,7 +130,7 @@ async def export_empty_racks():
     )
 
 @router.get("/reports/export/financial-aging")
-async def export_financial_aging():
+async def export_financial_aging(tenant_id: UUID = Depends(get_tenant_from_auth_header)):
     """Relatório de Inadimplência e Aging List (Títulos Vencidos por Faixa de Atraso)"""
     data = [
         {"Cliente": "Global Express Cargas", "CNPJ": "45.123.890/0001-12", "Fatura": "FAT-2026-089", "Valor Original": 14500.00, "Vencimento": "2026-10-15", "Dias Atraso": 23, "Faixa Aging": "16 a 30 dias", "Juros/Multa": 435.00, "Saldo Devedor": 14935.00, "Status Cobrança": "NOTIFICADO"},
@@ -144,7 +147,7 @@ async def export_financial_aging():
     )
 
 @router.get("/reports/export/dre-detailed")
-async def export_dre_detailed():
+async def export_dre_detailed(tenant_id: UUID = Depends(get_tenant_from_auth_header)):
     """Demonstrativo de Resultado do Exercício (DRE) Detalhado Logístico"""
     data = [
         {"Grupo Contábil": "1. RECEITA OPERACIONAL BRUTA", "Linha": "Receita de Armazenagem (Ad Valorem / Diárias)", "Valor Realizado (R$)": 380450.00, "% Receita": "70.4%"},
@@ -170,7 +173,7 @@ async def export_dre_detailed():
     )
 
 @router.get("/reports/export/procurement-saving")
-async def export_procurement_saving():
+async def export_procurement_saving(tenant_id: UUID = Depends(get_tenant_from_auth_header)):
     """Relatório de Compras: Pedidos Fechados vs Orçados e Análise de Saving"""
     data = [
         {"Pedido": "PO-2026-001", "Item": "Filme Stretch Automático 500mm", "Fornecedor": "PlastPack Embalagens", "Qtd": 200, "Valor Orçado Médio": 14200.00, "Valor Fechado": 12100.00, "Saving Real (R$)": 2100.00, "% Saving": "14.8%", "Comprador": "Renato Garcia"},

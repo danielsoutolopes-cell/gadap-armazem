@@ -16,7 +16,13 @@ def get_tenant_from_auth_header(authorization: Optional[str] = Header(None)) -> 
     
     token = authorization.split(" ")[1]
 
-    # Mock token para testes locais de desenvolvimento
+    # Mock tokens estruturados para testes multi-tenant e validação de segurança
+    if token.startswith("test_tenant_"):
+        company_idx = token.replace("test_tenant_", "")
+        if company_idx.isdigit():
+            idx_int = int(company_idx)
+            return UUID(f"10000000-0000-0000-0000-{idx_int:012d}")
+            
     if token == "mock_token" or token == "dev_token":
         return UUID("11111111-1111-1111-1111-111111111111")
 
