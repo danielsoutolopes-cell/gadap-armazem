@@ -60,6 +60,8 @@ O Portal B2B (`app/portal-cliente/page.tsx`) oferece autoatendimento integral pa
 | **Financeiro AP/AR** | Escritório | `/dashboard/financeiro/*` | Contas a Pagar, Contas a Receber e Conciliação Pix |
 | **Compras / Suprimentos**| Escritório | `/dashboard/compras/pedidos` | Requisições de Insumos com integração automática no AP |
 | **Autenticação Segura**| Portal / Login | `/login` | Supabase Auth, Toggle de Senha e Redirecionamento RBAC |
+| **Gestão de Usuários RBAC**| Painel Armazém | `/dashboard/configuracoes/usuarios` | Gestão de membros do armazém, papéis e convites |
+| **Console Superadmin**| SaaS Global | `/admin/empresas` | Gestão e provisionamento de Armazéns/Tenants |
 
 ---
 
@@ -74,4 +76,35 @@ O sistema conta com seed de autenticação via Supabase Auth e tabela `public.us
 ### 6.2. Tela Corporativa de Login (`/login`)
 - **Toggle Visibility:** Campo de senha protegido com botão de alternância (ícone de olho) para conferência de digitação.
 - **Integração de Sessão:** Token de autenticação persistido de forma segura com roteamento baseado em função (`SUPERADMIN`/`OPERATOR` direcionados para a Torre de Controle; `CLIENT` para o Portal B2B).
+
+---
+
+## 7. Gestão de Acessos e Matriz de Permissões RBAC (Prompt 14)
+
+### 7.1. Papéis e Escopos de Permissão
+O sistema implementa **Role-Based Access Control (RBAC)** estrito, com validação no backend (FastAPI) e Row Level Security (RLS) no PostgreSQL:
+
+1. **`SUPERADMIN` (Dono da Plataforma SaaS):**
+   - Acesso cross-tenant irrestrito a todas as empresas do ecossistema.
+   - Provisionamento, ativação e suspensão de armazéns/galpões (`/admin/empresas`).
+   - Gestão de cotas de licenças e parâmetros globais.
+
+2. **`TENANT_ADMIN` (Administrador do Armazém Local):**
+   - Gestão restrita aos dados e equipe da sua própria empresa (`company_id`).
+   - Convidar novos colaboradores, definir papéis operacionais e inativar contas (`/dashboard/configuracoes/usuarios`).
+   - Visualização integral da Torre de Controle, conciliações de inventário e compras internas.
+
+3. **`OPERATOR` (Operador de Doca e Estoque):**
+   - Acesso restrito ao PWA móvel de Recebimento (`/doca/recebimento`) e Expedição (`/doca/expedicao`).
+   - Leitura de código de barras, registro fotográfico de avarias efêmero e packing list.
+   - Bloqueado para dados financeiros e cadastros de fornecedores.
+
+4. **`FINANCE` (Controladoria e Faturamento):**
+   - Gestão de Contas a Pagar (`/dashboard/financeiro/pagar`) e Contas a Receber (`/dashboard/financeiro/receber`).
+   - Emissão de NFS-e, faturamento decendial/quinzenal de armazenagem e conciliação bancária Pix.
+
+5. **`CLIENT` (Importador / Depositante B2B):**
+   - Acesso exclusivo ao autoatendimento B2B (`/portal-cliente`).
+   - Consulta restrita às suas próprias cargas estocadas e faturas geradas.
+
 

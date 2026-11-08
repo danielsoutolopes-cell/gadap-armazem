@@ -12,7 +12,8 @@ from app.api.v1.endpoints import (
     fiscal_billing,
     crm,
     finance_base,
-    procurement
+    procurement,
+    rbac_admin
 )
 
 api_router = APIRouter()
@@ -30,3 +31,4 @@ api_router.include_router(finance_base.router, prefix="/finance")
 api_router.include_router(procurement.router, prefix="/procurement")
 api_router.include_router(client_portal.router, prefix="/b2b")
 api_router.include_router(crm.router, prefix="/crm")
+api_router.include_router(rbac_admin.router, prefix="/admin")

@@ -14,7 +14,9 @@ import {
   ArrowDownCircle,
   ArrowUpCircle,
   ShoppingCart,
-  LogIn
+  LogIn,
+  Users,
+  ShieldCheck
 } from "lucide-react";
 
 export default function HomePage() {
@@ -30,15 +32,58 @@ export default function HomePage() {
               Plataforma Integrada: Cadastros Base, Suprimentos, Financeiro AP/AR, Doca Mobile, Torre 2D e Inventário ABC
             </p>
           </div>
-          <Link
-            href="/login"
-            className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg shadow-blue-600/20 transition-all hover:scale-105 shrink-0"
-          >
-            <LogIn className="w-4 h-4" />
-            <span>Área de Login</span>
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/dashboard/configuracoes/usuarios"
+              className="flex items-center gap-2 px-3.5 py-2.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shrink-0"
+            >
+              <Users className="w-4 h-4 text-blue-400" />
+              <span className="hidden sm:inline">Equipe & RBAC</span>
+            </Link>
+            <Link
+              href="/login"
+              className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg shadow-blue-600/20 transition-all hover:scale-105 shrink-0"
+            >
+              <LogIn className="w-4 h-4" />
+              <span>Área de Login</span>
+            </Link>
+          </div>
         </div>
       </header>
+
+      {/* SEÇÃO NOBRE: GESTÃO DE ACESSOS (RBAC) & ADMINISTRAÇÃO SAAS */}
+      <section className="space-y-3">
+        <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-purple-500"></span> Administração SaaS & Controle de Acessos (RBAC)
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Link
+            href="/dashboard/configuracoes/usuarios"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-blue-500 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <Users className="w-6 h-6 text-blue-400" />
+              <h3 className="text-base font-bold text-white">Gestão da Equipe & Papéis (Tenant RBAC)</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Controle de acessos dos membros do armazém: Administradores de Galpão, Operadores de Doca e Controladoria Financeira. Convite com envio de senha temporária.
+            </p>
+          </Link>
+
+          <Link
+            href="/admin/empresas"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-purple-500 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <Building2 className="w-6 h-6 text-purple-400" />
+              <h3 className="text-base font-bold text-white">Superadmin • Gestão de Armazéns & Tenants</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Console exclusivo para o Superusuário provisionar múltiplos armazéns gerais, CLIAs e operadores logísticos no SaaS com isolamento estrito de dados via RLS.
+            </p>
+          </Link>
+        </div>
+      </section>
 
       {/* SEÇÃO 0: SUPRIMENTOS & COMPRAS INTERNAS (NOVA SEÇÃO) */}
       <section className="space-y-3">
