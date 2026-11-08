@@ -19,7 +19,7 @@ class CustomServiceCreateSchema(BaseModel):
     item_lc116: str = Field(default="11.04", description="Item da Lista de Serviços LC 116/03")
     aliquota_iss: float = Field(default=5.00)
     cfop_padrao: str = Field(default="5906")
-    is_bonded_customs: bool = Field(default=false, description="Indicador se é serviço específico de Recinto Alfandegado EADI")
+    is_bonded_customs: bool = Field(default=False, description="Indicador se é serviço específico de Recinto Alfandegado EADI")
 
 @router.get("/customs/services")
 async def list_warehouse_and_customs_services(
