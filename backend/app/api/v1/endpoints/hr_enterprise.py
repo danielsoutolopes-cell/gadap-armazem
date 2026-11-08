@@ -335,3 +335,4 @@ async def get_time_bank_balance(x_tenant_id: str = Header(..., alias="X-Tenant-I
             {"nome": "Fernando Souza Mendes", "cargo": "Assistente Logístico", "saldo": "-04h 30min", "expiracao": "2026-12-31", "status": "COMPENSAR"}
         ]
     }
+

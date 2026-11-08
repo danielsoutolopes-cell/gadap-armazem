@@ -36,7 +36,8 @@ import {
   Lock,
   Clock,
   Terminal,
-  Award
+  Award,
+  Landmark
 } from "lucide-react";
 
 interface NavGroup {
@@ -74,6 +75,7 @@ const navigationGroups: NavGroup[] = [
       { name: "Contas a Pagar (AP)", href: "/dashboard/financeiro/pagar", icon: CreditCard },
       { name: "Contas a Receber (AR)", href: "/dashboard/financeiro/receber", icon: DollarSign },
       { name: "Conciliação OFX & SPED", href: "/dashboard/financeiro/conciliacao", icon: FileCheck },
+      { name: "Tesouraria Enterprise & DRE", href: "/dashboard/financeiro/enterprise", icon: Landmark, badge: "CFO" },
       { name: "Suprimentos & Compras", href: "/dashboard/compras/pedidos", icon: ShoppingCart },
     ]
   },

@@ -84,11 +84,28 @@ Para treinamentos internos, homologação e aprendizado sem risco à operação 
 
 ---
 
-## 7. Faturamento, Billing & Motor de Contratos (`/dashboard/faturamento`)
+## 7. Faturamento, Billing, Contratos & Tesouraria Enterprise (`/dashboard/faturamento` e `/dashboard/financeiro/enterprise`)
 
-- **Ad-Valorem:** Cálculo sobre o valor CIF da mercadoria proporcional aos decêndios ou quinzena de armazenagem.
-- **Handling In/Out:** Cobrança por tonelada ou por palete movimentado.
-- **Demurrage de Containers:** Contagem regressiva de *Free Time* com cálculo diário de sobreestadia em USD/BRL.
+O módulo financeiro do GADAP WMS atende aos mais elevados padrões corporativos de Controladoria e Tesouraria (compatível com **SAP S/4HANA Finance e Oracle NetSuite**):
+
+- **Faturamento e Tarifas Aduaneiras:**
+  - **Ad-Valorem:** Cálculo sobre o valor CIF da mercadoria proporcional aos decêndios ou quinzena de armazenagem;
+  - **Handling In/Out:** Cobrança por tonelada ou por palete movimentado;
+  - **Demurrage de Containers:** Contagem regressiva de *Free Time* com cálculo diário de sobreestadia em USD/BRL.
+- **Fluxo de Caixa Preditivo (D+30 / D+60 / D+90):**
+  - Projeção de liquidez diária cruzando recebimentos previstos com aplicação de taxa esperada de inadimplência;
+  - Saídas compulsórias: Fornecedores, Contratos Spot, Folha de Pagamento e Calendário Tributário (DAS, DCTFWeb/DARF e ISSQN);
+  - Índice de Liquidez Imediata e análise de cobertura de Capital de Giro.
+- **DRE Gerencial Estruturada & EBITDA:**
+  - Demonstração do Resultado do Exercício com análise vertical detalhada;
+  - Margem Bruta, Custos dos Serviços Prestados (CSP), Despesas Operacionais (OPEX), EBITDA (LAJIDA) e Lucro Líquido sob regime de competência.
+- **Intercâmbio Bancário Automático (CNAB 240 / 400):**
+  - Geração de arquivos REMESSA para cobrança e processamento automatizado de arquivos RETORNO para os principais bancos (Itaú, Banco do Brasil, Bradesco, Santander e Sicoob), efetuando baixas em D+0.
+- **Motor PIX Dinâmico com QR Code Bacen:**
+  - Geração de cobranças em conformidade com o Manual de Padrões do Banco Central (padrão EMV QRCPS-MPM);
+  - Liquidação em tempo real com Webhook de conciliação instantânea em D+0.
+- **Governança Orçamentária & Alçadas (Budget vs Actual):**
+  - Travamento automático de requisições de compras que excedam o teto do Centro de Custo, com escalonamento para a Diretoria Financeira.
 
 ---
 

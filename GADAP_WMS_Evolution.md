@@ -451,7 +451,51 @@ O DRE operacional consolida as rubricas de faturamento e custos específicos do 
 - [x] **Módulo 33:** Tela Executiva de Auditoria do Sistema & Logs em Tempo Real (`/dashboard/auditoria-sistema`) com Stream de Telemetria Zero-Trust, métricas de saúde da infraestrutura (PostgreSQL/Supabase, Redis, SEFAZ, Rate-Limiters) e Health Check interativo.
 - [x] **Módulo 34:** Matriz de Hierarquias de Acesso por Perfil (RBAC), Provisionamento da Empresa Demonstração TESTE LTDA (`teste@teste` / `teste`) no GADAP Academy com Auto-Reset no Logout, criação do `MANUAL_DO_USUARIO.md` e do `ROTEIRO_DE_APRENDIZAGEM.md` com laboratórios práticos.
 - [x] **Módulo 35 (Entregue):** Governança e Conformidade Integral LGPD (Lei 13.709/2018), Canal Oficial DPO (`/dashboard/privacidade-lgpd`), Gestão de Direitos do Titular (DSAR - Art. 18), Anonimização Irreversível SHA-256 (Art. 12), Harmonização com Guarda Fiscal (Art. 16, I), Mascaramento Dinâmico de PII e Suíte de Testes Ultrarigorosos em 7 Vetores com Laudo em PDF Score 100/100 (`RELATORIO_CONFORMIDADE_LGPD_TESTES_SEGURANCA.pdf`).
-- [x] **Módulo 36 (Novo):** RH & HCM Enterprise no Padrão Top Market ERP (SAP SuccessFactors / TOTVS Protheus / Senior HCM): Motor de Férias CLT (1/3 Constitucional, Abono Pecuniário e Art. 145), Simulador de Rescisão TRCT com Aviso Prévio Proporcional (Lei 12.506/11) e Multa 40% FGTS, Hub de Mensageria eSocial A1 (S-1000 a S-2299), Livro Eletrônico de EPI com CA Válido (NR-06 MTE) e Gestão Inteligente de Banco de Horas com Alertas de Expiração de Acordo Coletivo.
+## 26. Engenharia de Controladoria e Finanças Enterprise (Padrão SAP S/4HANA & Oracle NetSuite)
+- **1. Central de Tesouraria Enterprise & DRE (`frontend/app/dashboard/financeiro/enterprise`):**
+  - Painel executivo para diretores financeiros (CFOs) e gestores de controladoria.
+- **2. Fluxo de Caixa Preditivo (D+30 / D+60 / D+90):**
+  - Projeção de liquidez diária cruzando contas a receber (com taxa de inadimplência configurável), contas a pagar compulsórias, folha de pagamento e calendário fiscal (DAS, DCTFWeb/DARF e ISSQN Armazém Geral).
+  - Cálculo contínuo do índice de liquidez imediata e dias de caixa disponível.
+- **3. DRE Gerencial & Margem EBITDA:**
+  - Demonstração do Resultado do Exercício com análise vertical, apuração de Custos dos Serviços Prestados (CSP), Despesas Operacionais (OPEX), EBITDA (LAJIDA) e Lucro Líquido do armazém.
+- **4. Intercâmbio Bancário Automático CNAB 240 / 400 (FEBRABAN):**
+  - Emissão de lotes de remessa para registro de títulos e processamento automático de arquivos de retorno bancário com conciliação e baixas em D+0 para Itaú, Banco do Brasil, Bradesco, Santander e Sicoob.
+- **5. Motor PIX Dinâmico com QR Code Bacen:**
+  - Geração de cobranças instantâneas no padrão EMV QRCPS-MPM com liquidação em D+0 via Webhook Pix.
+- **6. Governança Orçamentária por Centro de Custo (Budget vs Actual):**
+  - Validação automática de alçadas com travamento de requisições que excedam o saldo disponível e escalonamento para a Diretoria Financeira.
+
+---
+
+## 📍 STATUS DO ROADMAP
+
+- [x] **Módulo 01-12:** Core WMS, LPNs, PWA de Doca, Torre 2D, Agendamento Inteligente via WhatsApp, Inventário ABC, Billing em Lote e Compras.
+- [x] **Módulo 13:** Autenticação e Seed de Superusuário (`danielsmlopes@hotmail.com`).
+- [x] **Módulo 14 & 23:** RBAC Corporativo Realista e Política Zero-Trust do Superadmin.
+- [x] **Módulo 15:** RH Completo CLT, Catálogo Oficial de Rubricas eSocial, Importação REP AFD (Portaria 671 MTE), Holerite PDF e Integração Contas a Pagar (AP).
+- [x] **Módulo 16:** Motor de Contratos, Pricing Flexível por Regras e Simulador de Faturamento.
+- [x] **Módulo 17:** Relatórios Gerenciais, DRE Logístico, Curva ABC, RevPAR e IA "Ask the Data".
+- [x] **Módulo 18:** Qualidade QMS, FEFO/FIFO Regulatório e Bloqueio Preditivo de Validade vs Trânsito.
+- [x] **Módulo 19:** CMMS Frotas, Horímetro com Gatilho a 250h e Manutenções Corretivas com Foto.
+- [x] **Módulo 20:** Conciliação OFX (Tinder Financeiro) e Exportação SPED EFD ICMS/IPI.
+- [x] **Módulo 21:** CRM B2B Logístico, Funil Kanban e Gerador de Propostas com IA (WhatsApp).
+- [x] **Módulo 22:** Onboarding do Armazém, Integração CNPJ (BrasilAPI/ReceitaWS), Injeção de Logo e Procuradores Legais.
+- [x] **Módulo 23:** Central de Relatórios Setoriais 360º com Geração Nativa de Planilhas Excel (`.xlsx` via Pandas/Openpyxl).
+- [x] **Módulo 24:** Motor Fiscal Nativo Proprietário (Direct-to-SEFAZ), Cofre de Certificado Digital A1 com Criptografia AES-256 e Assinatura XML Nativa.
+- [x] **Módulo 25:** IA Tributária, Web Scraping Semanal de Legislação e Preparação Estrutural para a Reforma Tributária (IBS/CBS/IS).
+- [x] **Módulo 26:** Infraestrutura DevOps com GitHub Action Keep-Alive para Alta Disponibilidade do Banco Supabase.
+- [x] **Módulo 27:** Catálogo Mestre de Serviços Aduaneiros (EADI/Porto Seco), Códigos Fiscais LC 116 / CFOP e Suporte a SKUs de Serviços Exclusivos por Cliente.
+- [x] **Módulo 28:** Otimização de Performance (Índices Compostos Postgres), Cache In-Memory de 3s para Torre 2D e Fila Assíncrona Direct-to-SEFAZ.
+- [x] **Módulo 29:** Manual Definitivo de Implantação e Migração Autônoma Zero-Stress (`MANUAL_DE_MIGRACAO_E_IMPLANTACAO_GADAP.md`), permitindo onboarding 100% self-service pelo cliente sem atritos técnicos.
+- [x] **Módulo 30:** Auditoria Multi-Tenant com 10 Empresas Simultâneas, Blindagem Zero-Trust (RLS em AP/AR, Folha, Contratos e Relatórios Excel Isolados), com Score 100/100 e PDF Corporativo (`RELATORIO_SEGURANCA_MULTI_TENANT_10_EMPRESAS.pdf`).
+- [x] **Módulo 31:** Central de Impressão de DANFEs (Individual e em Lote) e Exportador do Pacote Mensal do Contador (`.ZIP` com XMLs assinados, DANFEs em PDF e Manifesto Fiscal).
+- [x] **Módulo 32:** Conformidade LGPD & Proteção de Infraestrutura: Marca D'água Forense e Hash SHA-256 no rodapé de planilhas Excel/PDFs e Rate-Limiting de 100 req/min por tenant em rotas pesadas de exportação.
+- [x] **Módulo 33:** Tela Executiva de Auditoria do Sistema & Logs em Tempo Real (`/dashboard/auditoria-sistema`) com Stream de Telemetria Zero-Trust, métricas de saúde da infraestrutura (PostgreSQL/Supabase, Redis, SEFAZ, Rate-Limiters) e Health Check interativo.
+- [x] **Módulo 34:** Matriz de Hierarquias de Acesso por Perfil (RBAC), Provisionamento da Empresa Demonstração TESTE LTDA (`teste@teste` / `teste`) no GADAP Academy com Auto-Reset no Logout, criação do `MANUAL_DO_USUARIO.md` e do `ROTEIRO_DE_APRENDIZAGEM.md` com laboratórios práticos.
+- [x] **Módulo 35:** Governança e Conformidade Integral LGPD (Lei 13.709/2018), Canal Oficial DPO (`/dashboard/privacidade-lgpd`), Gestão de Direitos do Titular (DSAR - Art. 18), Anonimização Irreversível SHA-256 (Art. 12), Harmonização com Guarda Fiscal (Art. 16, I), Mascaramento Dinâmico de PII e Suíte de Testes Ultrarigorosos em 7 Vetores com Laudo em PDF Score 100/100 (`RELATORIO_CONFORMIDADE_LGPD_TESTES_SEGURANCA.pdf`).
+- [x] **Módulo 36:** RH & HCM Enterprise no Padrão Top Market ERP (SAP SuccessFactors / TOTVS Protheus / Senior HCM): Motor de Férias CLT (1/3 Constitucional, Abono Pecuniário e Art. 145), Simulador de Rescisão TRCT com Aviso Prévio Proporcional (Lei 12.506/11) e Multa 40% FGTS, Hub de Mensageria eSocial A1 (S-1000 a S-2299), Livro Eletrônico de EPI com CA Válido (NR-06 MTE) e Gestão Inteligente de Banco de Horas com Alertas de Expiração de Acordo Coletivo.
+- [x] **Módulo 37 (Novo):** Finanças e Tesouraria Enterprise no Padrão Top Market ERP (SAP S/4HANA Finance / Oracle NetSuite): Fluxo de Caixa Preditivo (D+30/60/90 com Liquidez Diária e Taxa de Inadimplência), DRE Gerencial Contábil com EBITDA e Análise Vertical, Motor Bancário CNAB 240/400 (Remessa/Retorno Baixas D+0), Cobrança PIX Dinâmica com QR Code Bacen (Padrão EMV) e Governança Orçamentária por Centro de Custo com Alçadas da Diretoria Financeira.
 
 
 
