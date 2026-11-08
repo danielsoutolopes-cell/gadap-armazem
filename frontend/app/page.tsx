@@ -18,7 +18,8 @@ import {
   Users,
   ShieldCheck,
   Briefcase,
-  FileSpreadsheet
+  FileSpreadsheet,
+  Calculator
 } from "lucide-react";
 
 export default function HomePage() {
@@ -82,6 +83,40 @@ export default function HomePage() {
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               Console exclusivo para o Superusuário provisionar múltiplos armazéns gerais, CLIAs e operadores logísticos no SaaS com isolamento estrito de dados via RLS.
+            </p>
+          </Link>
+        </div>
+      </section>
+
+      {/* SEÇÃO PRICING & CONTRATOS: MOTOR DE TARIFAS E SIMULADOR */}
+      <section className="space-y-3">
+        <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-amber-400"></span> Motor de Contratos, Pricing & Simulador Preditivo
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Link
+            href="/dashboard/contratos"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-amber-400 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <Calculator className="w-6 h-6 text-amber-400" />
+              <h3 className="text-base font-bold text-white">Contratos & Construtor Visual de Tarifas</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Parametrização de diárias pró-rata de armazenagem (palete/m³/m²), índices de reajuste (IPCA/IGP-M) e regras condicionais por tipo de carga.
+            </p>
+          </Link>
+
+          <Link
+            href="/dashboard/contratos"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-emerald-500 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <Sparkles className="w-6 h-6 text-emerald-400" />
+              <h3 className="text-base font-bold text-white">Simulador Preditivo de Faturamento</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Aba dedicada para o gestor comercial simular cenários operacionais fictícios, calculando freetime, handling e franquia mínima antes de emitir a proposta.
             </p>
           </Link>
         </div>

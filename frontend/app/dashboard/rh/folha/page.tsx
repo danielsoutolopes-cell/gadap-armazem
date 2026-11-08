@@ -2,17 +2,17 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { 
-  DollarSign, 
-  FileText, 
-  Printer, 
-  TrendingUp, 
-  Clock, 
-  HelpCircle, 
-  ArrowLeft, 
-  Download, 
-  Send, 
-  ShieldCheck, 
+import {
+  DollarSign,
+  FileText,
+  Printer,
+  TrendingUp,
+  Clock,
+  HelpCircle,
+  ArrowLeft,
+  Download,
+  Send,
+  ShieldCheck,
   AlertTriangle,
   Building2,
   Calendar,
@@ -341,7 +341,7 @@ export default function FolhaHoleritePage() {
         {/* RECIBO OFICIAL DE PAGAMENTO DE SALÁRIO (HOLERITE PADRÃO NACIONAL BRASIL) */}
         {/* ========================================================================= */}
         <div className="bg-white text-slate-900 rounded-2xl p-6 md:p-8 shadow-2xl border border-slate-300 font-mono print:border-none print:shadow-none print:p-0">
-          
+
           {/* Cabeçalho do Empregador */}
           <div className="border-b-2 border-slate-900 pb-4 mb-4">
             <div className="flex justify-between items-start">

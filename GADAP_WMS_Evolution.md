@@ -64,6 +64,7 @@ O Portal B2B (`app/portal-cliente/page.tsx`) oferece autoatendimento integral pa
 | **Console Superadmin**| SaaS Global | `/admin/empresas` | Gestão e provisionamento de Armazéns/Tenants |
 | **RH Colaboradores** | Gestão CLT | `/dashboard/rh/colaboradores` | Matrícula, CBO, Importação CSV e eSocial S-2200 |
 | **Folha & Holerites**| Folha CLT | `/dashboard/rh/folha` | INSS/IRRF progressivo, Horas Extras vs Doca, S-1200 |
+| **Contratos & Pricing**| Billing Engine | `/dashboard/contratos` | Construtor Visual de Tarifas, Pró-rata e Simulador |
 
 ---
 
@@ -129,6 +130,32 @@ O motor de cálculo brasileiro aplica as regras vigentes do Ministério do Traba
 - **Evento S-2200 (Admissão de Trabalhador):** Geração de payload estruturado (JSON/XML) com CBO oficial, matrícula, vínculos e remuneração.
 - **Evento S-1200 / S-1210 (Remuneração e Pagamentos):** Transmissão de rubricas detalhadas de vencimentos (`001`, `105`, `106`, `120`, `130`) e retenções fiscais (`501`, `502`, `520`).
 - **Holerite PDF Oficial:** Layout homologado com demonstrativo de bases de INSS/FGTS, depósito de 8% do empregador e canhoto para assinatura do trabalhador.
+
+---
+
+## 9. Motor de Contratos Comerciais e Tarifação Flexível (Prompt 16)
+
+### 9.1. Estrutura Contratual e Índices Financeiros
+O motor de cobrança atende às exigências de operadores logísticos modernos (3PL) e recintos alfandegados:
+- **Índices de Reajuste Automático:** Suporte nativo para indexação anual por IPCA, IGP-M, INPC ou contratos com tarifas fixas.
+- **Grace Period (Freetime):** Período de isenção de armazenagem parametrizável em dias por contrato (ex: 3 a 5 dias livres na chegada).
+- **Franquia Mínima Mensal:** Garantia contratual de faturamento mínimo para reserva de área no galpão.
+- **Ciclos de Faturamento:** Compatibilidade com fechamento decendial (10 dias - padrão alfandegado), quinzenal ou mensal.
+
+### 9.2. Regras Tarifárias Condicionais e Pró-rata
+O motor calcula a armazenagem com precisão matemática:
+- **Rateio Pró-rata Diário:** Mercadorias que entram no decorrer do mês pagam estritamente a fração dos dias ocupados.
+- **Unidades Parametrizáveis:** Cobrança por posição-palete/dia (`PALLET_DAY`), metro cúbico/dia (`M3_DAY`), área locada/mês (`M2_MONTH`) e tonelada/dia (`TON_DAY`).
+- **Regras Condicionais de Carga:** Sobretaxas automáticas parametrizadas por regras visuais no estilo:
+  - *SE* carga for Frigorificada/Climatizada (+4°C a -20°C) -> *ENTÃO* tarifa base de R$ 4,50/palete/dia.
+  - *SE* carga for Perigosa/Química (IMO) -> *ENTÃO* tarifa base de R$ 6,80/palete/dia + handling especial blindado.
+  - *SE* carga for Alfandegada/DI -> *ENTÃO* tarifa ad valorem decendial.
+
+### 9.3. Simulador Preditivo de Faturas ("O Algo a Mais")
+- Disponível na aba `/dashboard/contratos` para a equipe comercial testar cenários hipotéticos antes da celebração da proposta.
+- O gestor informa o perfil de carga (paletes, peso, dias previstos de armazenagem e serviços extras como filme stretch e desova manual).
+- O motor calcula instantaneamente o demonstrativo discriminado de rubricas e verifica se o subtotal atinge a franquia mínima contratual.
+
 
 
 

@@ -14,7 +14,8 @@ from app.api.v1.endpoints import (
     finance_base,
     procurement,
     rbac_admin,
-    hr_payroll
+    hr_payroll,
+    contracts_pricing
 )
 
 api_router = APIRouter()
@@ -34,3 +35,4 @@ api_router.include_router(client_portal.router, prefix="/b2b")
 api_router.include_router(crm.router, prefix="/crm")
 api_router.include_router(rbac_admin.router, prefix="/admin")
 api_router.include_router(hr_payroll.router, prefix="/hr")
+api_router.include_router(contracts_pricing.router, prefix="/pricing")
