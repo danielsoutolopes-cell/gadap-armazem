@@ -132,6 +132,32 @@ export default function AcademyPage() {
         </div>
       </header>
 
+      {/* Banner Especial: Empresa TESTE LTDA */}
+      <div className="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/20 rounded-2xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="p-3 bg-amber-500/20 text-amber-300 rounded-xl">
+            <Building2 className="w-6 h-6" />
+          </div>
+          <div>
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <span>Ambiente Prático: Empresa TESTE LTDA</span>
+              <span className="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono font-bold">
+                Sem Travas de Acesso
+              </span>
+            </h2>
+            <p className="text-xs text-slate-400 mt-0.5">
+              Utilize as credenciais <strong>teste@teste</strong> (senha: <strong>teste</strong>) para praticar os exercícios abaixo. Ao sair, todos os dados voltam automaticamente ao estado inicial fictício.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <span className="px-3 py-1.5 bg-slate-900 border border-slate-700 text-slate-300 rounded-xl text-xs font-mono">
+            teste@teste / teste
+          </span>
+        </div>
+      </div>
+
       {/* Grid de Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {modules.map((m) => (

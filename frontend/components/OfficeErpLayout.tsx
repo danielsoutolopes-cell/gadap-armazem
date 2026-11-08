@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { resetDemoTenantState, isRouteAllowed, Role } from "@/lib/permissions";
 import {
   LayoutDashboard,
   Boxes,
@@ -106,7 +107,40 @@ const navigationGroups: NavGroup[] = [
 
 export default function OfficeErpLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [isDemo, setIsDemo] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("gadap_user");
+      const demoFlag = localStorage.getItem("gadap_is_demo") === "true";
+      setIsDemo(demoFlag);
+      if (stored) {
+        try {
+          const user = JSON.parse(stored);
+          setCurrentUser(user);
+          if (user?.is_demo_tenant || user?.email === "teste@teste") {
+            setIsDemo(true);
+          }
+        } catch {}
+      }
+    }
+  }, [pathname]);
+
+  const handleLogout = () => {
+    if (typeof window !== "undefined") {
+      // Se for a empresa TESTE LTDA, reseta todos os dados fictícios imediatamente
+      if (isDemo || currentUser?.email === "teste@teste") {
+        resetDemoTenantState();
+        localStorage.removeItem("gadap_is_demo");
+      }
+      localStorage.removeItem("gadap_auth_token");
+      localStorage.removeItem("gadap_user");
+      router.push("/login");
+    }
+  };
 
   // Páginas em tela cheia que dispensam a barra lateral do escritório
   const isAuthPage = pathname === "/login" || pathname === "/recuperar-senha" || pathname === "/reset-password";
@@ -197,21 +231,27 @@ export default function OfficeErpLayout({ children }: { children: React.ReactNod
         {/* User Footer */}
         <div className="p-4 border-t border-slate-800 flex items-center justify-between bg-slate-950/40">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-xs">
-              DL
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${
+              isDemo ? "bg-amber-500/20 border border-amber-500/40 text-amber-300" : "bg-blue-600/20 border border-blue-500/30 text-blue-400"
+            }`}>
+              {isDemo ? "TT" : "DL"}
             </div>
             <div className="text-left">
-              <div className="text-xs font-bold text-white line-clamp-1">Daniel Souto Lopes</div>
-              <div className="text-[10px] text-slate-400">danielsmlopes@hotmail.com</div>
+              <div className="text-xs font-bold text-white line-clamp-1">
+                {isDemo ? "TESTE LTDA (Demo)" : (currentUser?.user_metadata?.full_name || "Daniel Souto Lopes")}
+              </div>
+              <div className="text-[10px] text-slate-400">
+                {isDemo ? "teste@teste (Sem Travas)" : (currentUser?.email || "danielsmlopes@hotmail.com")}
+              </div>
             </div>
           </div>
-          <Link
-            href="/login"
-            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
-            title="Sair do ERP"
+          <button
+            onClick={handleLogout}
+            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
+            title="Sair do ERP (Reinicia dados da TESTE LTDA)"
           >
             <LogOut className="w-4 h-4" />
-          </Link>
+          </button>
         </div>
       </aside>
 
@@ -237,6 +277,13 @@ export default function OfficeErpLayout({ children }: { children: React.ReactNod
 
           {/* Quick Actions no Topo */}
           <div className="flex items-center gap-3">
+            {isDemo && (
+              <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-xl text-amber-300 text-xs font-semibold">
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                <span>Empresa TESTE LTDA (Modo Demonstração Academy • Sem Travas)</span>
+              </div>
+            )}
+
             <Link
               href="/dashboard/torre-controle"
               className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 rounded-xl text-xs font-semibold text-slate-200 transition-colors"

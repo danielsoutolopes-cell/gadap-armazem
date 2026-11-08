@@ -47,7 +47,58 @@ export default function LoginPage() {
 
       const data = await res.json();
 
+      // Login especial para a empresa TESTE LTDA (Ambiente Academy / Demonstração sem travas)
+      if (email.trim().toLowerCase() === "teste@teste" && password === "teste") {
+        const demoSession = {
+          access_token: "demo-token-teste-ltda-" + Date.now(),
+          user: {
+            email: "teste@teste",
+            role: "TENANT_OWNER",
+            is_demo_tenant: true,
+            tenant_name: "TESTE LTDA",
+            tenant_cnpj: "00.000.000/0001-91",
+            user_metadata: { 
+              full_name: "Operador de Treinamento", 
+              role: "TENANT_OWNER",
+              is_demo_tenant: true,
+              company: "TESTE LTDA"
+            }
+          }
+        };
+        // Inicializa/Reseta os dados fictícios da empresa TESTE LTDA
+        localStorage.setItem("gadap_auth_token", demoSession.access_token);
+        localStorage.setItem("gadap_user", JSON.stringify(demoSession.user));
+        localStorage.setItem("gadap_is_demo", "true");
+        router.push("/dashboard/academy");
+        return;
+      }
+
       if (!res.ok) {
+        // Fallback especial caso tente logar com o teste@teste e o endpoint backend não reconheça
+        if (email.trim().toLowerCase() === "teste@teste" && password === "teste") {
+          const demoSession = {
+            access_token: "demo-token-teste-ltda-" + Date.now(),
+            user: {
+              email: "teste@teste",
+              role: "TENANT_OWNER",
+              is_demo_tenant: true,
+              tenant_name: "TESTE LTDA",
+              tenant_cnpj: "00.000.000/0001-91",
+              user_metadata: { 
+                full_name: "Operador de Treinamento", 
+                role: "TENANT_OWNER",
+                is_demo_tenant: true,
+                company: "TESTE LTDA"
+              }
+            }
+          };
+          localStorage.setItem("gadap_auth_token", demoSession.access_token);
+          localStorage.setItem("gadap_user", JSON.stringify(demoSession.user));
+          localStorage.setItem("gadap_is_demo", "true");
+          router.push("/dashboard/academy");
+          return;
+        }
+
         // Fallback para ambiente local/demo se o banco ainda não rodou a migration de auth
         if (email.trim() === "danielsmlopes@hotmail.com" && password === "Gabriel2006") {
           const mockSession = {
@@ -185,13 +236,29 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Informação sobre credencial padrão */}
-            <div className="p-3 bg-slate-950/60 border border-slate-800/80 rounded-xl flex items-center justify-between text-xs text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <Building2 className="w-3.5 h-3.5 text-blue-400" />
-                Superadmin inicial:
-              </span>
-              <span className="text-slate-300 font-mono text-[11px]">danielsmlopes@hotmail.com</span>
+            {/* Informação sobre credencial padrão & Empresa TESTE LTDA */}
+            <div className="space-y-2">
+              <div className="p-3 bg-slate-950/60 border border-slate-800/80 rounded-xl flex items-center justify-between text-xs text-slate-400">
+                <span className="flex items-center gap-1.5">
+                  <Building2 className="w-3.5 h-3.5 text-blue-400" />
+                  Superadmin Produção:
+                </span>
+                <span className="text-slate-300 font-mono text-[11px]">danielsmlopes@hotmail.com</span>
+              </div>
+
+              <div 
+                onClick={() => { setEmail("teste@teste"); setPassword("teste"); }}
+                className="p-3 bg-amber-500/10 border border-amber-500/20 hover:border-amber-500/40 rounded-xl flex items-center justify-between text-xs text-amber-300 cursor-pointer transition"
+                title="Clique para preencher as credenciais da empresa TESTE LTDA"
+              >
+                <div className="flex items-center gap-1.5">
+                  <Boxes className="w-3.5 h-3.5 text-amber-400" />
+                  <span className="font-semibold">Ambiente Academy (TESTE LTDA):</span>
+                </div>
+                <span className="font-mono text-[11px] bg-amber-500/20 px-2 py-0.5 rounded text-amber-200">
+                  teste@teste / teste
+                </span>
+              </div>
             </div>
 
             {/* Botão de Entrar */}
