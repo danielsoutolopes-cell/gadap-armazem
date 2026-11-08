@@ -17,7 +17,8 @@ from app.api.v1.endpoints import (
     hr_payroll,
     contracts_pricing,
     analytics_bi,
-    advanced_modules
+    advanced_modules,
+    zero_trust_rbac
 )
 
 api_router = APIRouter()
@@ -40,3 +41,4 @@ api_router.include_router(hr_payroll.router, prefix="/hr")
 api_router.include_router(contracts_pricing.router, prefix="/pricing")
 api_router.include_router(analytics_bi.router, prefix="/analytics")
 api_router.include_router(advanced_modules.router, prefix="/enterprise")
+api_router.include_router(zero_trust_rbac.router, prefix="/zero-trust")

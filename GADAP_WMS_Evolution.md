@@ -92,33 +92,41 @@ O sistema conta com seed de autenticação via Supabase Auth e tabela `public.us
 
 ---
 
-## 7. Gestão de Acessos e Matriz de Permissões RBAC (Prompt 14)
+## 7. Hierarquia Realista de Perfis (RBAC) e Isolamento Zero-Trust (Prompt 23)
 
-### 7.1. Papéis e Escopos de Permissão
-O sistema implementa **Role-Based Access Control (RBAC)** estrito, com validação no backend (FastAPI) e Row Level Security (RLS) no PostgreSQL:
+### 7.1. Hierarquia Funcional Realista do Armazém
+O sistema adota o organograma corporativo de Centros de Distribuição e Operadores 3PL:
 
-1. **`SUPERADMIN` (Dono da Plataforma SaaS):**
-   - Acesso cross-tenant irrestrito a todas as empresas do ecossistema.
-   - Provisionamento, ativação e suspensão de armazéns/galpões (`/admin/empresas`).
-   - Gestão de cotas de licenças e parâmetros globais.
+1. **`TENANT_OWNER` (Diretor Geral do Armazém):**
+   - Acesso total e irrestrito a todos os módulos do seu tenant (`company_id`).
+   - Gestão do organograma, criação e inativação de gerentes, operadores e financeiro.
+   - Aprovação de fechamento de faturamento, conciliação e relatórios estratégicos (DRE).
 
-2. **`TENANT_ADMIN` (Administrador do Armazém Local):**
-   - Gestão restrita aos dados e equipe da sua própria empresa (`company_id`).
-   - Convidar novos colaboradores, definir papéis operacionais e inativar contas (`/dashboard/configuracoes/usuarios`).
-   - Visualização integral da Torre de Controle, conciliações de inventário e compras internas.
+2. **`MANAGER` (Gerente de Logística e Operações):**
+   - Acesso pleno à Torre de Controle, Heatmap 2D, Auditoria 3-Way Match e inventário físico.
+   - Supervisão das docas de recebimento e expedição.
+   - **Restrição de Segurança:** Cego para as telas financeiras (Contas a Pagar/Receber, faturamento decendial e DRE).
 
-3. **`OPERATOR` (Operador de Doca e Estoque):**
-   - Acesso restrito ao PWA móvel de Recebimento (`/doca/recebimento`) e Expedição (`/doca/expedicao`).
-   - Leitura de código de barras, registro fotográfico de avarias efêmero e packing list.
-   - Bloqueado para dados financeiros e cadastros de fornecedores.
+3. **`FINANCE` (Controladoria & Faturamento):**
+   - Acesso ao contas a pagar, contas a receber, conciliação de extrato OFX, SPED Fiscal e faturamento em lote.
+   - **Restrição de Segurança:** Bloqueado para alteração de estoque físico, endereçamento de ruas e conferência de doca.
 
-4. **`FINANCE` (Controladoria e Faturamento):**
-   - Gestão de Contas a Pagar (`/dashboard/financeiro/pagar`) e Contas a Receber (`/dashboard/financeiro/receber`).
-   - Emissão de NFS-e, faturamento decendial/quinzenal de armazenagem e conciliação bancária Pix.
+4. **`OPERATOR` (Conferente de Doca & Operador de Campo):**
+   - Acesso restrito ao PWA móvel (`/doca/recebimento` e `/doca/expedicao`) para conferência cega e bipagem.
+   - Totalmente bloqueado para telas de cadastros, faturamento e relatórios gerenciais.
 
-5. **`CLIENT` (Importador / Depositante B2B):**
-   - Acesso exclusivo ao autoatendimento B2B (`/portal-cliente`).
-   - Consulta restrita às suas próprias cargas estocadas e faturas geradas.
+5. **`CLIENT_B2B` (Depositante / Dono da Carga):**
+   - Acesso restrito e isolado ao Portal do Cliente (`/portal-cliente`), visualizando exclusivamente seus próprios lotes estocados e faturas.
+
+### 7.2. Política Zero-Trust para o Superusuário (SaaS Master)
+Para garantir conformidade com LGPD, sigilo fiscal e auditorias aduaneiras (OEA):
+- O **`SUPERADMIN`** administra **EXCLUSIVAMENTE a infraestrutura SaaS** (planos de assinatura, limites de disco, nós de banco de dados e provisionamento de galpões).
+- **Isolamento Absoluto RLS:** Todas as tabelas de negócio e dados confidenciais (`inbound_lots`, `accounts_payable`, `accounts_receivable`, `contracts`, `inventory_audits`) possuem travas de segurança ativas:
+  ```sql
+  AND public.get_current_user_role() != 'SUPERADMIN' -- Zero-Trust Enforcement
+  ```
+- O Superadministrador é **completamente cego** aos dados de faturamento, clientes depositantes, notas fiscais e estoques dos armazéns.
+
 
 ---
 
