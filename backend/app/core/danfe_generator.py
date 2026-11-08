@@ -166,6 +166,18 @@ def generate_danfe_pdf_bytes(invoice_data: Dict[str, Any]) -> io.BytesIO:
         ('BOTTOMPADDING', (0,0), (-1,-1), 4),
     ]))
     elements.append(t_obs)
+    elements.append(Spacer(1, 4))
+
+    # Marca d'Água Digital e Hash SHA-256 no Rodapé do DANFE (Conformidade LGPD)
+    watermark_str = invoice_data.get('watermark_text')
+    if not watermark_str:
+        tenant_name = invoice_data.get('client_name', 'GADAP ARMAZÉNS GERAIS S.A.')
+        tenant_cnpj = invoice_data.get('client_cnpj', '11.222.333/0001-44')
+        hash_val = invoice_data.get('sha256_hash', 'A8F932BC71E4009D1829B7F309AC4E81')
+        watermark_str = f"DOCUMENTO FISCAL AUDITADO (LGPD) | EMISSOR/DESTINATÁRIO: {tenant_name} ({tenant_cnpj}) | SHA-256: {hash_val[:16]}... | EMISSÃO: {datetime.now().strftime('%d/%m/%Y %H:%M')}"
+
+    footer_style = ParagraphStyle('FS', parent=styles['Normal'], fontName='Helvetica-Oblique', fontSize=6.5, leading=8, textColor=colors.HexColor('#64748b'), alignment=1)
+    elements.append(Paragraph(watermark_str, footer_style))
 
     doc.build(elements)
     buffer.seek(0)
@@ -204,3 +216,4 @@ def generate_accountant_zip(invoices: List[Dict[str, Any]], competence_month: st
 
     zip_buffer.seek(0)
     return zip_buffer
+

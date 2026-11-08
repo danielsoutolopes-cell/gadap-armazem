@@ -162,8 +162,15 @@ O módulo de RH/Folha já calcula automaticamente o DSR e integra os proventos e
 #### **4. Como garantir que os dados de um cliente depositante não vazem para outro?**
 A arquitetura do GADAP é blindada por **Row-Level Security (RLS)** nativo no banco de dados. Cada cliente cadastrado só enxerga seus próprios saldos, lotes e extratos, inclusive no Portal do Cliente.
 
+#### **5. Como funciona a impressão de DANFEs e o envio para a contabilidade?**
+O sistema permite imprimir o DANFE individual imediatamente após a autorização ou em lotes completos para a equipe de expedição. Além disso, em **Fiscal > Emissão**, basta clicar em **"Baixar Pacote do Contador (.ZIP)"** para obter todos os XMLs e PDFs do mês com o manifesto consolidado.
+
+#### **6. Como o sistema protege relatórios contra cópias não autorizadas (LGPD)?**
+Todas as planilhas Excel (`.xlsx`) e PDFs gerados contam com **Marca D'água Digital e Hash SHA-256 no rodapé**, carimbando o CNPJ da empresa, data/hora e identificador forense. Adicionalmente, há **Rate-Limiting de 100 req/min por empresa** para proteger o servidor contra scripts de extração massiva não supervisionada.
+
 ---
 
 ### 📞 Suporte e Acompanhamento
 - **Logs e Diagnóstico em Tempo Real:** Disponíveis em **Configurações > Auditoria do Sistema**.
 - **Testes de Resiliência:** Execute periodicamente a suíte de auditoria (`python scripts/run_stress_chaos_benchmark.py`) para verificar o score de saúde do seu ambiente.
+

@@ -5,23 +5,54 @@ from typing import Optional, List, Dict, Any
 from fastapi import APIRouter, HTTPException, Query, Response, Depends
 from fastapi.responses import StreamingResponse
 import pandas as pd
+from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from app.core.supabase_client import supabase as supabase_admin
 from app.core.auth import get_tenant_from_auth_header
+from app.core.rate_limit import check_tenant_export_rate_limit
+from app.core.watermark import generate_watermark_metadata
 
 router = APIRouter(tags=["Central de Relatórios Setoriais 360 & Excel"])
 
-def generate_styled_excel(df: pd.DataFrame, sheet_title: str) -> io.BytesIO:
-    """Gera um arquivo Excel nativo .xlsx profissionalmente formatado com openpyxl"""
+def generate_styled_excel(df: pd.DataFrame, sheet_title: str, watermark_meta: Optional[Dict[str, str]] = None) -> io.BytesIO:
+    """
+    Gera um arquivo Excel nativo .xlsx profissionalmente formatado com openpyxl,
+    adicionando cabeçalho executivo, larguras calculadas e rodapé com Marca D'água Digital
+    e Hash Criptográfico SHA-256 exclusivo do tenant (Conformidade LGPD e Auditoria de Cópia).
+    """
     output = io.BytesIO()
     with pd.ExcelWriter(output, engine='openpyxl') as writer:
-        df.to_excel(writer, index=False, sheet_name=sheet_title[:30])
+        df.to_excel(writer, index=False, sheet_name=sheet_title[:30], startrow=2)
         worksheet = writer.sheets[sheet_title[:30]]
         
+        # Cabeçalho Institucional na Linha 1
+        if watermark_meta:
+            worksheet.cell(row=1, column=1, value=f"ORGANIZAÇÃO: {watermark_meta['tenant_name']} | CNPJ: {watermark_meta['tenant_cnpj']}")
+            worksheet.cell(row=1, column=1).font = Font(name="Calibri", size=10, bold=True, color="1E3A8A")
+        
+        # Estilização do cabeçalho da tabela
+        header_fill = PatternFill(start_color="1E293B", end_color="1E293B", fill_type="solid")
+        header_font = Font(name="Calibri", size=10, bold=True, color="FFFFFF")
+        for col_idx in range(1, len(df.columns) + 1):
+            cell = worksheet.cell(row=3, column=col_idx)
+            cell.fill = header_fill
+            cell.font = header_font
+            cell.alignment = Alignment(horizontal="center", vertical="center")
+
         # Ajusta automaticamente a largura das colunas
         for col in worksheet.columns:
             max_len = max(len(str(cell.value or '')) for cell in col)
             col_letter = col[0].column_letter
-            worksheet.column_dimensions[col_letter].width = max(max_len + 4, 12)
+            worksheet.column_dimensions[col_letter].width = max(max_len + 4, 14)
+
+        # Inserção da Marca D'água Digital e Hash SHA-256 no Rodapé da Planilha
+        if watermark_meta:
+            footer_row = len(df) + 5
+            ws_footer = worksheet.cell(row=footer_row, column=1, value=watermark_meta["watermark_text"])
+            ws_footer.font = Font(name="Calibri", size=8, italic=True, color="64748B")
+            
+            # Adiciona metadados de cabeçalho e rodapé de impressão física
+            worksheet.oddFooter.center.text = f"&K64748B{watermark_meta['watermark_text']}"
+            worksheet.oddFooter.right.text = "Página &P de &N"
             
     output.seek(0)
     return output
@@ -33,7 +64,12 @@ async def export_stock_movement(
     operation_type: Optional[str] = Query(None), # INBOUND, OUTBOUND, ALL
     tenant_id: UUID = Depends(get_tenant_from_auth_header)
 ):
-    """Extrato Completo de Movimentação Logística (Inbound/Outbound) em Excel formatado"""
+    """Extrato Completo de Movimentação Logística (Inbound/Outbound) em Excel formatado com Marca D'água"""
+    # 1. Aplicação do Rate Limit (Teto de 100 req/min por tenant)
+    check_tenant_export_rate_limit(tenant_id, max_requests=100, window_seconds=60)
+    
+    # 2. Metadados de Marca D'água e Hash SHA-256 (LGPD)
+    watermark_meta = generate_watermark_metadata(tenant_id, "Extrato_Movimentacao_Estoque")
     data = [
         {
             "Data/Hora": "2026-11-01 09:30",
@@ -85,17 +121,23 @@ async def export_stock_movement(
         }
     ]
     df = pd.DataFrame(data)
-    excel_stream = generate_styled_excel(df, "Extrato_Movimentacao")
+    excel_stream = generate_styled_excel(df, "Extrato_Movimentacao", watermark_meta=watermark_meta)
     filename = f"GADAP_Extrato_Movimentacao_{datetime.now().strftime('%Y%m%d_%H%M')}.xlsx"
     return StreamingResponse(
         excel_stream,
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
+        headers={
+            "Content-Disposition": f"attachment; filename={filename}",
+            "X-LGPD-Watermark-Hash": watermark_meta["sha256_hash"],
+            "X-RateLimit-Limit": "100"
+        }
     )
 
 @router.get("/reports/export/dock-sla")
 async def export_dock_sla(tenant_id: UUID = Depends(get_tenant_from_auth_header)):
-    """Relatório Operacional de SLA de Doca (Tempo de Espera, Carga e Descarga)"""
+    """Relatório Operacional de SLA de Doca com Rate Limit e Marca D'água"""
+    check_tenant_export_rate_limit(tenant_id, max_requests=100, window_seconds=60)
+    watermark_meta = generate_watermark_metadata(tenant_id, "SLA_Docas_Operacional")
     data = [
         {"Doca": "DOCA-01", "Tipo": "DESCARGA (INBOUND)", "Veículo": "Carreta Baú (Scania)", "Placa": "BRA2E19", "Chegada": "08:15", "Início Operação": "08:30", "Fim Operação": "10:15", "Tempo Total (min)": 105, "SLA Meta (min)": 120, "Status SLA": "DENTRO DA META"},
         {"Doca": "DOCA-02", "Tipo": "DESCARGA (INBOUND)", "Veículo": "Container 40ft HC", "Placa": "PRT9A88", "Chegada": "09:00", "Início Operação": "09:45", "Fim Operação": "13:30", "Tempo Total (min)": 225, "SLA Meta (min)": 180, "Status SLA": "EXCEDIDO (GARGALO)"},
@@ -103,17 +145,22 @@ async def export_dock_sla(tenant_id: UUID = Depends(get_tenant_from_auth_header)
         {"Doca": "DOCA-04", "Tipo": "EXPEDIÇÃO (OUTBOUND)", "Veículo": "VUC Urbano", "Placa": "SPX1K22", "Chegada": "14:10", "Início Operação": "14:20", "Fim Operação": "15:05", "Tempo Total (min)": 45, "SLA Meta (min)": 60, "Status SLA": "DENTRO DA META"}
     ]
     df = pd.DataFrame(data)
-    excel_stream = generate_styled_excel(df, "SLA_Docas")
+    excel_stream = generate_styled_excel(df, "SLA_Docas", watermark_meta=watermark_meta)
     filename = f"GADAP_SLA_Docas_{datetime.now().strftime('%Y%m%d_%H%M')}.xlsx"
     return StreamingResponse(
         excel_stream,
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
+        headers={
+            "Content-Disposition": f"attachment; filename={filename}",
+            "X-LGPD-Watermark-Hash": watermark_meta["sha256_hash"]
+        }
     )
 
 @router.get("/reports/export/empty-racks")
 async def export_empty_racks(tenant_id: UUID = Depends(get_tenant_from_auth_header)):
-    """Relatório de Posições Vazias e Ocupação de Porta-Paletes por Rua"""
+    """Relatório de Posições Vazias com Rate Limit e Marca D'água"""
+    check_tenant_export_rate_limit(tenant_id, max_requests=100, window_seconds=60)
+    watermark_meta = generate_watermark_metadata(tenant_id, "Posicoes_Livres_Armazem")
     data = [
         {"Rua": "RUA 01", "Prédio": "P01", "Nível": "N01", "Endereço": "RUA01-P01-N01", "Capacidade Peso (kg)": 1200, "Altura Livre (m)": 2.10, "Tipo": "DRY", "Status": "LIVRE", "Dias Vaga": 14},
         {"Rua": "RUA 01", "Prédio": "P01", "Nível": "N02", "Endereço": "RUA01-P01-N02", "Capacidade Peso (kg)": 1200, "Altura Livre (m)": 2.10, "Tipo": "DRY", "Status": "LIVRE", "Dias Vaga": 6},
@@ -121,34 +168,44 @@ async def export_empty_racks(tenant_id: UUID = Depends(get_tenant_from_auth_head
         {"Rua": "RUA 04", "Prédio": "P02", "Nível": "N01", "Endereço": "RUA04-P02-N01", "Capacidade Peso (kg)": 1500, "Altura Livre (m)": 2.50, "Tipo": "CLIMATIZADO", "Status": "LIVRE", "Dias Vaga": 3}
     ]
     df = pd.DataFrame(data)
-    excel_stream = generate_styled_excel(df, "Posicoes_Livres")
+    excel_stream = generate_styled_excel(df, "Posicoes_Livres", watermark_meta=watermark_meta)
     filename = f"GADAP_Posicoes_Vazias_{datetime.now().strftime('%Y%m%d_%H%M')}.xlsx"
     return StreamingResponse(
         excel_stream,
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
+        headers={
+            "Content-Disposition": f"attachment; filename={filename}",
+            "X-LGPD-Watermark-Hash": watermark_meta["sha256_hash"]
+        }
     )
 
 @router.get("/reports/export/financial-aging")
 async def export_financial_aging(tenant_id: UUID = Depends(get_tenant_from_auth_header)):
-    """Relatório de Inadimplência e Aging List (Títulos Vencidos por Faixa de Atraso)"""
+    """Relatório de Inadimplência com Rate Limit e Marca D'água"""
+    check_tenant_export_rate_limit(tenant_id, max_requests=100, window_seconds=60)
+    watermark_meta = generate_watermark_metadata(tenant_id, "Aging_List_Inadimplencia")
     data = [
         {"Cliente": "Global Express Cargas", "CNPJ": "45.123.890/0001-12", "Fatura": "FAT-2026-089", "Valor Original": 14500.00, "Vencimento": "2026-10-15", "Dias Atraso": 23, "Faixa Aging": "16 a 30 dias", "Juros/Multa": 435.00, "Saldo Devedor": 14935.00, "Status Cobrança": "NOTIFICADO"},
         {"Cliente": "AgroTech Sementes do Brasil", "CNPJ": "18.990.234/0001-44", "Fatura": "FAT-2026-094", "Valor Original": 8200.00, "Vencimento": "2026-10-28", "Dias Atraso": 10, "Faixa Aging": "01 a 15 dias", "Juros/Multa": 164.00, "Saldo Devedor": 8364.00, "Status Cobrança": "LEMBRETE_ENVIADO"},
         {"Cliente": "Importadora Atlântica LTDA", "CNPJ": "77.654.321/0001-88", "Fatura": "FAT-2026-071", "Valor Original": 29800.00, "Vencimento": "2026-09-10", "Dias Atraso": 58, "Faixa Aging": "31 a 60 dias", "Juros/Multa": 1788.00, "Saldo Devedor": 31588.00, "Status Cobrança": "ASSESSORIA_JURIDICA"}
     ]
     df = pd.DataFrame(data)
-    excel_stream = generate_styled_excel(df, "Aging_List_Inadimplencia")
+    excel_stream = generate_styled_excel(df, "Aging_List_Inadimplencia", watermark_meta=watermark_meta)
     filename = f"GADAP_Aging_List_Inadimplencia_{datetime.now().strftime('%Y%m%d_%H%M')}.xlsx"
     return StreamingResponse(
         excel_stream,
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
+        headers={
+            "Content-Disposition": f"attachment; filename={filename}",
+            "X-LGPD-Watermark-Hash": watermark_meta["sha256_hash"]
+        }
     )
 
 @router.get("/reports/export/dre-detailed")
 async def export_dre_detailed(tenant_id: UUID = Depends(get_tenant_from_auth_header)):
-    """Demonstrativo de Resultado do Exercício (DRE) Detalhado Logístico"""
+    """DRE Detalhado com Rate Limit e Marca D'água"""
+    check_tenant_export_rate_limit(tenant_id, max_requests=100, window_seconds=60)
+    watermark_meta = generate_watermark_metadata(tenant_id, "DRE_Logistica_Consolidada")
     data = [
         {"Grupo Contábil": "1. RECEITA OPERACIONAL BRUTA", "Linha": "Receita de Armazenagem (Ad Valorem / Diárias)", "Valor Realizado (R$)": 380450.00, "% Receita": "70.4%"},
         {"Grupo Contábil": "1. RECEITA OPERACIONAL BRUTA", "Linha": "Receita de Handling / Movimentação In/Out", "Valor Realizado (R$)": 95200.00, "% Receita": "17.6%"},
@@ -164,17 +221,22 @@ async def export_dre_detailed(tenant_id: UUID = Depends(get_tenant_from_auth_hea
         {"Grupo Contábil": "6. RESULTADO LÍQUIDO DO PERÍODO", "Linha": "EBITDA Logístico Consolidado", "Valor Realizado (R$)": 192400.50, "% Receita": "35.6%"}
     ]
     df = pd.DataFrame(data)
-    excel_stream = generate_styled_excel(df, "DRE_Logistica")
+    excel_stream = generate_styled_excel(df, "DRE_Logistica", watermark_meta=watermark_meta)
     filename = f"GADAP_DRE_Detalhada_{datetime.now().strftime('%Y%m%d_%H%M')}.xlsx"
     return StreamingResponse(
         excel_stream,
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
+        headers={
+            "Content-Disposition": f"attachment; filename={filename}",
+            "X-LGPD-Watermark-Hash": watermark_meta["sha256_hash"]
+        }
     )
 
 @router.get("/reports/export/procurement-saving")
 async def export_procurement_saving(tenant_id: UUID = Depends(get_tenant_from_auth_header)):
-    """Relatório de Compras: Pedidos Fechados vs Orçados e Análise de Saving"""
+    """Relatório de Compras com Rate Limit e Marca D'água"""
+    check_tenant_export_rate_limit(tenant_id, max_requests=100, window_seconds=60)
+    watermark_meta = generate_watermark_metadata(tenant_id, "Saving_Compras_Logistica")
     data = [
         {"Pedido": "PO-2026-001", "Item": "Filme Stretch Automático 500mm", "Fornecedor": "PlastPack Embalagens", "Qtd": 200, "Valor Orçado Médio": 14200.00, "Valor Fechado": 12100.00, "Saving Real (R$)": 2100.00, "% Saving": "14.8%", "Comprador": "Renato Garcia"},
         {"Pedido": "PO-2026-002", "Item": "Paletes PBR Madeira Tratada", "Fornecedor": "Madeireira Sul Brasil", "Qtd": 500, "Valor Orçado Médio": 26500.00, "Valor Fechado": 23400.00, "Saving Real (R$)": 3100.00, "% Saving": "11.7%", "Comprador": "Renato Garcia"},
@@ -182,10 +244,13 @@ async def export_procurement_saving(tenant_id: UUID = Depends(get_tenant_from_au
         {"Pedido": "PO-2026-004", "Item": "Kit Baterias Tracionárias Empilhadeira", "Fornecedor": "EletroPower Baterias", "Qtd": 2, "Valor Orçado Médio": 38000.00, "Valor Fechado": 35200.00, "Saving Real (R$)": 2800.00, "% Saving": "7.4%", "Comprador": "Renato Garcia"}
     ]
     df = pd.DataFrame(data)
-    excel_stream = generate_styled_excel(df, "Saving_Compras")
+    excel_stream = generate_styled_excel(df, "Saving_Compras", watermark_meta=watermark_meta)
     filename = f"GADAP_Saving_Compras_{datetime.now().strftime('%Y%m%d_%H%M')}.xlsx"
     return StreamingResponse(
         excel_stream,
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
+        headers={
+            "Content-Disposition": f"attachment; filename={filename}",
+            "X-LGPD-Watermark-Hash": watermark_meta["sha256_hash"]
+        }
     )
