@@ -1,9 +1,10 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import OfficeErpLayout from "@/components/OfficeErpLayout";
 
 export const metadata: Metadata = {
-  title: "GADAP Armazém | WMS & Recinto Alfandegado",
-  description: "Sistema WMS Multi-tenant com PWA de Doca e Auditoria Aduaneira",
+  title: "GADAP ERP & WMS | Sistema Corporativo Integrado",
+  description: "ERP & WMS Logístico Corporativo Multi-tenant com Gestão Completa de Escritório e Operação",
 };
 
 export default function RootLayout({
@@ -14,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className="bg-slate-950 text-slate-100 min-h-screen">
-        {children}
+        <OfficeErpLayout>{children}</OfficeErpLayout>
       </body>
     </html>
   );

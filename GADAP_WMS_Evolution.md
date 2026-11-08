@@ -228,6 +228,51 @@ O DRE operacional consolida as rubricas de faturamento e custos específicos do 
 - **Pipeline Kanban de Vendas:** Gestão de oportunidades logísticas nas fases de Prospecção, Proposta Enviada, Negociação e Contrato Fechado.
 - **"O Algo a Mais" (Gerador de Propostas com IA):** Motor com inteligência artificial que lê solicitações em linguagem natural (ex: *"500 paletes de geladeiras por 3 meses"*), calcula custos operacionais e gera cartas-proposta completas com margem garantida de 25% e botão de envio por WhatsApp.
 
+---
+
+## 15. Nova UX/UI Corporativa para ERP de Escritório & Matriz de Permissões RBAC (Prompt 23/24)
+
+### 15.1. Redesign de Interface para Estações de Trabalho (Desktop Office)
+- **Layout Corporativo Unificado (`OfficeErpLayout.tsx`):**
+  - **Sidebar Persistente Expansível/Recolhível:** Navegação lateral com categorização funcional:
+    - *Torre & Operações:* Dashboard Geral, Torre 2D, Agendamentos, TMS e Auditoria.
+    - *Controladoria & Billing:* Faturamento em Lote, Contratos & Pricing, Contas a Pagar, Contas a Receber e Conciliação OFX/SPED.
+    - *Cadastros & CRM:* Funil B2B, Clientes, Fornecedores, Serviços & Catálogo e Compras.
+    - *Gestão, RH & Qualidade:* Colaboradores, Folha CLT/eSocial, QMS & FEFO, Manutenção CMMS, Relatórios BI & DRE e Academy.
+  - **Isolamento de Rotas Operacionais e Públicas:** O layout detecta automaticamente as telas mobile de coletor de doca (`/doca/*`) e telas de autenticação (`/login`, `/recuperar-senha`, `/reset-password`), fornecendo a experiência tela-cheia sem distrações.
+  - **Topbar Corporativo:** Breadcrumbs dinâmicos com a rota atual, indicador de status online/offline, identificação do operador logado e atalho rápido de logout seguro.
+
+### 15.2. Matriz de Permissões RBAC e Política Zero-Trust
+| Perfil (Role) | Âmbito de Acesso | Operação / Doca | Faturamento / Financeiro | RH & Folha | Gestão Multi-tenant |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| **SUPERADMIN** | SaaS Global (Infra) | ❌ Zero-Trust | ❌ Zero-Trust | ❌ Zero-Trust |  Total |
+| **TENANT_OWNER** | Diretoria do Armazém |  Total |  Total |  Total | ❌ Próprio Tenant |
+| **MANAGER** | Gerência Operacional |  Total | ❌ Restrito |  Operacional | ❌ Sem Acesso |
+| **FINANCE** | Controladoria & Billing | ❌ Leitura |  Total | ❌ Restrito | ❌ Sem Acesso |
+| **OPERATOR** | Conferente / Coletor |  PWA Doca | ❌ Sem Acesso | ❌ Sem Acesso | ❌ Sem Acesso |
+| **CLIENT_B2B** | Depositante Externo |  Próprio Estoque |  Próprias Faturas | ❌ Sem Acesso | ❌ Sem Acesso |
+
+> [!IMPORTANT]
+> **Garantia de Isolamento Zero-Trust:** O `SUPERADMIN` possui permissão estritamente restrita à governança da infraestrutura (ativação e provisionamento de novos armazéns/tenants e suporte técnico). As regras de Row Level Security (RLS) bloqueiam expressamente o acesso do `SUPERADMIN` a extratos bancários, dados financeiros, informações salariais de funcionários e volumes confidenciais de terceiros.
+
+---
+
+## 📍 STATUS DO ROADMAP
+
+- [x] **Módulo 01-12:** Core WMS, LPNs, PWA de Doca, Torre 2D, Agendamento Inteligente via WhatsApp, Inventário ABC, Billing em Lote e Compras.
+- [x] **Módulo 13:** Autenticação e Seed de Superusuário (`danielsmlopes@hotmail.com`).
+- [x] **Módulo 14 & 23:** RBAC Corporativo Realista e Política Zero-Trust do Superadmin.
+- [x] **Módulo 15:** RH, Folha CLT, Cálculos INSS/IRRF, Holerite PDF, Integração eSocial (S-2200/S-1200) e Predição HE vs Doca.
+- [x] **Módulo 16:** Motor de Contratos, Pricing Flexível por Regras e Simulador de Faturamento.
+- [x] **Módulo 17:** Relatórios Gerenciais, DRE Logístico, Curva ABC, RevPAR e IA "Ask the Data".
+- [x] **Módulo 18:** Qualidade QMS, FEFO/FIFO Regulatório e Bloqueio Preditivo de Validade vs Trânsito.
+- [x] **Módulo 19:** CMMS Frotas, Horímetro com Gatilho a 250h e Manutenções Corretivas com Foto.
+- [x] **Módulo 20:** Conciliação OFX (Tinder Financeiro) e Exportação SPED EFD ICMS/IPI.
+- [x] **Módulo 21:** CRM B2B Logístico, Funil Kanban e Gerador de Propostas com IA (WhatsApp).
+- [x] **Módulo 22:** Recuperação e Redefinição de Senhas com Tokens Seguros.
+- [x] **Módulo 24:** UX/UI Profissional para ERP de Escritório Corporativo (Sidebar Persistente, Topbar com Breadcrumbs e Responsividade Desktop).
+
+
 
 
 
