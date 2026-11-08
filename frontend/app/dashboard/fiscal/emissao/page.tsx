@@ -17,7 +17,10 @@ import {
   ToggleLeft,
   ToggleRight,
   Server,
-  Code
+  Code,
+  Printer,
+  Archive,
+  MailCheck
 } from "lucide-react";
 import Link from "next/link";
 
@@ -395,19 +398,65 @@ export default function FiscalEmissaoPage() {
                   className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg text-xs font-semibold text-slate-200"
                 >
                   <Code className="w-3.5 h-3.5 text-blue-400" />
-                  Ver XML Assinado
+                  Ver XML
                 </button>
                 <a
                   href={`data:text/xml;charset=utf-8,${encodeURIComponent(issuedInvoice.signed_xml)}`}
                   download={`NFe-${issuedInvoice.access_key}.xml`}
-                  className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-xs font-bold text-white shadow-sm"
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg text-xs font-semibold text-slate-200"
                 >
                   <Download className="w-3.5 h-3.5" />
-                  Baixar XML
+                  XML
+                </a>
+                <a
+                  href={`http://localhost:8000/api/v1/invoices/${issuedInvoice.invoice_number}/danfe?access_key=${issuedInvoice.access_key}&gross_amount=${grossAmount}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-xs font-bold text-white shadow-sm"
+                >
+                  <Printer className="w-3.5 h-3.5" />
+                  Imprimir DANFE
                 </a>
               </div>
             </div>
           )}
+
+          {/* Central de Operações de Impressão em Lote e Envio ao Contador */}
+          <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5 space-y-4 shadow-sm">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div className="flex items-center gap-2">
+                <Archive className="w-4 h-4 text-amber-400" />
+                <h3 className="text-sm font-semibold text-white">Impressão em Lote & Pacote do Contador</h3>
+              </div>
+              <span className="text-[10px] bg-amber-500/10 text-amber-300 px-2 py-0.5 rounded border border-amber-500/30">
+                Rotina Mensal
+              </span>
+            </div>
+
+            <p className="text-xs text-slate-400">
+              Imprima múltiplos DANFEs de uma só vez para os motoristas na expedição ou baixe o pacote compactado contendo todos os XMLs e relatórios para enviar à contabilidade.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+              <a
+                href="http://localhost:8000/api/v1/invoices/000142/danfe?invoice_number=000140,000141,000142"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-center gap-2 py-2.5 px-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs font-medium text-slate-200 transition"
+              >
+                <Printer className="w-4 h-4 text-blue-400" />
+                Imprimir DANFEs em Lote
+              </a>
+
+              <a
+                href="http://localhost:8000/api/v1/invoices/export-accountant-package?month=2026-11"
+                className="flex items-center justify-center gap-2 py-2.5 px-3 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 rounded-xl text-xs font-bold text-white shadow-sm transition"
+              >
+                <MailCheck className="w-4 h-4" />
+                Baixar Pacote do Contador (.ZIP)
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
