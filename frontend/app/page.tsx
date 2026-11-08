@@ -21,7 +21,10 @@ import {
   FileSpreadsheet,
   Calculator,
   BarChart3,
-  PieChart
+  PieChart,
+  Wrench,
+  FileCheck,
+  Kanban
 } from "lucide-react";
 
 export default function HomePage() {
@@ -85,6 +88,74 @@ export default function HomePage() {
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               Console exclusivo para o Superusuário provisionar múltiplos armazéns gerais, CLIAs e operadores logísticos no SaaS com isolamento estrito de dados via RLS.
+            </p>
+          </Link>
+        </div>
+      </section>
+
+      {/* SEÇÃO QUALIDADE QMS & CMMS MANUTENÇÃO */}
+      <section className="space-y-3">
+        <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-emerald-400"></span> Qualidade Regulatória (QMS) & CMMS Manutenção de Frotas
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Link
+            href="/dashboard/qualidade"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-emerald-400 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <ShieldCheck className="w-6 h-6 text-emerald-400" />
+              <h3 className="text-base font-bold text-white">QMS • Validade FEFO & Compliance Anvisa/MAPA</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Semáforo de vencimento de lotes perecíveis (30, 60, 90 dias), bloqueio de quarentena automática e IA preditiva de tempo de transporte vs. validade restante.
+            </p>
+          </Link>
+
+          <Link
+            href="/dashboard/manutencao"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-amber-400 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <Wrench className="w-6 h-6 text-amber-400" />
+              <h3 className="text-base font-bold text-white">CMMS • Saúde da Frota & Gatilho por Horímetro</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Gestão de empilhadeiras e niveladoras de doca com disparo automático de manutenções preventivas a cada 250 horas de picking e chamados corretivos rápidos com foto.
+            </p>
+          </Link>
+        </div>
+      </section>
+
+      {/* SEÇÃO CONCILIAÇÃO OFX/SPED & CRM COMERCIAL */}
+      <section className="space-y-3">
+        <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-indigo-500"></span> Conciliação OFX/SPED & CRM B2B de Vendas do Armazém
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Link
+            href="/dashboard/financeiro/conciliacao"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-emerald-400 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <FileCheck className="w-6 h-6 text-emerald-400" />
+              <h3 className="text-base font-bold text-white">Conciliação Bancária OFX & Exportação SPED</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Tinder Financeiro para confirmação rápida de match entre extrato bancário OFX e títulos a pagar/receber, além de exportação oficial do SPED Fiscal ICMS/IPI.
+            </p>
+          </Link>
+
+          <Link
+            href="/dashboard/comercial/pipeline"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-indigo-500 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <Briefcase className="w-6 h-6 text-indigo-400" />
+              <h3 className="text-base font-bold text-white">CRM B2B • Funil Kanban & Propostas com IA</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Pipeline de vendas de armazenagem geral e recinto alfandegado, com geração instantânea de cartas-proposta via LLM garantindo margem de lucro de 25%.
             </p>
           </Link>
         </div>

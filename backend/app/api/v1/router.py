@@ -16,7 +16,8 @@ from app.api.v1.endpoints import (
     rbac_admin,
     hr_payroll,
     contracts_pricing,
-    analytics_bi
+    analytics_bi,
+    advanced_modules
 )
 
 api_router = APIRouter()
@@ -38,3 +39,4 @@ api_router.include_router(rbac_admin.router, prefix="/admin")
 api_router.include_router(hr_payroll.router, prefix="/hr")
 api_router.include_router(contracts_pricing.router, prefix="/pricing")
 api_router.include_router(analytics_bi.router, prefix="/analytics")
+api_router.include_router(advanced_modules.router, prefix="/enterprise")

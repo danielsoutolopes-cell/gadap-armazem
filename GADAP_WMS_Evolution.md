@@ -66,6 +66,10 @@ O Portal B2B (`app/portal-cliente/page.tsx`) oferece autoatendimento integral pa
 | **Folha & Holerites**| Folha CLT | `/dashboard/rh/folha` | INSS/IRRF progressivo, Horas Extras vs Doca, S-1200 |
 | **Contratos & Pricing**| Billing Engine | `/dashboard/contratos` | Construtor Visual de Tarifas, Pró-rata e Simulador |
 | **Relatórios BI & DRE**| Inteligência | `/dashboard/relatorios` | DRE Gerencial, Curva ABC, RevPAR e Ask the Data (NLP) |
+| **QMS & Validade FEFO**| Qualidade | `/dashboard/qualidade` | Semáforo de validade, FEFO/FIFO, Anvisa e IA de trânsito |
+| **CMMS Manutenção** | Ativos & Frota | `/dashboard/manutencao` | Horímetro de empilhadeiras, preventivas e chamados com foto |
+| **Conciliação OFX/SPED**| Fiscal & Bancário | `/dashboard/financeiro/conciliacao` | Tinder Financeiro, Match automático e SPED EFD ICMS/IPI |
+| **CRM B2B & Propostas**| Comercial | `/dashboard/comercial/pipeline` | Funil Kanban e Propostas com IA (margem de 25%) |
 
 ---
 
@@ -182,6 +186,35 @@ O DRE operacional consolida as rubricas de faturamento e custos específicos do 
 - O executivo formula perguntas livres como *"Qual foi o faturamento total em outubro?"* ou *"Qual o RevPAR atual?"*.
 - O motor traduz em consulta SQL estruturada e devolve o resumo sintetizado com painel de pré-visualização de dados.
 - Exportação nativa dos relatórios em formato estruturado `.csv` e compatível com Excel.
+
+---
+
+## 11. Módulo QMS & Algoritmo FEFO/FIFO Regulatório (Prompt 18)
+- **Rastreabilidade Obrigatória:** Inclusão dos campos de lote (`batch_number`), fabricação (`manufacturing_date`), validade (`expiration_date`) e zona térmica (`temperature_zone`) no inventário.
+- **Motor FEFO (First Expired, First Out):** Ordenação dinâmica da separação pelo lote com data de vencimento mais próxima, mitigando perdas financeiras em produtos farmacêuticos e alimentícios.
+- **Bloqueio de Qualidade por CRON:** Rotina diária que reclassifica lotes vencidos para `QUARANTINE_EXPIRED`, travando fisicamente a emissão de romaneio de expedição.
+- **"O Algo a Mais" (IA Preditiva de Trânsito):** Cruzamento automático do tempo estimado de trânsito rodoviário com o shelf-life restante do lote, impedindo expedições que chegariam vencidas ao cliente.
+
+---
+
+## 12. CMMS - Gestão de Frotas e Ativos por Horímetro (Prompt 19)
+- **Controle de Ativos Físicos:** Monitoramento de empilhadeiras elétricas/combustão, niveladoras de doca e máquinas de stretch.
+- **"O Algo a Mais" (Gatilho por Horímetro):** Cada ciclo de picking concluído no PWA incrementa o horímetro do equipamento. Ao atingir o ciclo limite de 250 horas, uma ordem de manutenção preventiva é disparada automaticamente.
+- **Chamados Corretivos com Foto:** Abertura rápida de ordens de serviço corretivas com upload de imagens de peças danificadas.
+
+---
+
+## 13. Conciliação Bancária OFX e Integração SPED Fiscal (Prompt 20)
+- **Tinder Financeiro:** Interface interativa comparando lançamentos de extrato bancário (.OFX) com contas a pagar/receber do ERP.
+- **Algoritmo de Match Inteligente:** Reconhecimento automatizado por paridade de valor e proximidade de data de vencimento.
+- **Exportação SPED EFD ICMS/IPI:** Geração em lote do arquivo texto oficial (blocos 0000, 0001, C100, C190, 9999) pronto para importação no PVA da Receita Federal.
+
+---
+
+## 14. CRM B2B e Funil de Vendas do Armazém com IA (Prompt 21)
+- **Pipeline Kanban de Vendas:** Gestão de oportunidades logísticas nas fases de Prospecção, Proposta Enviada, Negociação e Contrato Fechado.
+- **"O Algo a Mais" (Gerador de Propostas com IA):** Motor com inteligência artificial que lê solicitações em linguagem natural (ex: *"500 paletes de geladeiras por 3 meses"*), calcula custos operacionais e gera cartas-proposta completas com margem garantida de 25% e botão de envio por WhatsApp.
+
 
 
 
