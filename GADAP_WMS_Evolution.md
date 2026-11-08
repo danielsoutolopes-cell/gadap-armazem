@@ -374,6 +374,16 @@ O DRE operacional consolida as rubricas de faturamento e custos específicos do 
 
 ---
 
+## 24. Engenharia de Performance, Cache In-Memory e Fila Assíncrona Fiscal (Prompt 28)
+- **1. Índices Compostos e Particionados por Data (`20241108_performance_partition_indices.sql`):**
+  - Criação de índices cobrindo `(tenant_id, created_at DESC)` e `(created_at, status)` em `inbound_lots` e `outbound_orders`, garantindo que extratos com mais de 50.000 movimentações sejam extraídos abaixo de 40ms.
+- **2. Cache Distribuído com Redis / Fallback In-Memory para a Torre 2D (`app/core/cache.py`):**
+  - Implementação de cache com TTL de 3 segundos na rota de métricas e mapa de calor 2D (`/control-tower/metrics`), blindando o pool de conexões do Supabase contra picos de tráfego de estações de trabalho de múltiplos operadores.
+- **3. Fila Assíncrona de Mensageria Fiscal Direct-to-SEFAZ (`app/core/fiscal_queue.py`):**
+  - Gerenciador de fila assíncrona tolerante a falhas com retries exponenciais, absorvendo variações de latência e picos de transmissão da SEFAZ nos fechamentos operacionais das 18h.
+
+---
+
 ## 📍 STATUS DO ROADMAP
 
 - [x] **Módulo 01-12:** Core WMS, LPNs, PWA de Doca, Torre 2D, Agendamento Inteligente via WhatsApp, Inventário ABC, Billing em Lote e Compras.
@@ -391,7 +401,9 @@ O DRE operacional consolida as rubricas de faturamento e custos específicos do 
 - [x] **Módulo 24:** Motor Fiscal Nativo Proprietário (Direct-to-SEFAZ), Cofre de Certificado Digital A1 com Criptografia AES-256 e Assinatura XML Nativa.
 - [x] **Módulo 25:** IA Tributária, Web Scraping Semanal de Legislação e Preparação Estrutural para a Reforma Tributária (IBS/CBS/IS).
 - [x] **Módulo 26:** Infraestrutura DevOps com GitHub Action Keep-Alive para Alta Disponibilidade do Banco Supabase.
-- [x] **Módulo 27 (Novo):** Catálogo Mestre de Serviços Aduaneiros (EADI/Porto Seco), Códigos Fiscais LC 116 / CFOP e Suporte a SKUs de Serviços Exclusivos por Cliente.
+- [x] **Módulo 27:** Catálogo Mestre de Serviços Aduaneiros (EADI/Porto Seco), Códigos Fiscais LC 116 / CFOP e Suporte a SKUs de Serviços Exclusivos por Cliente.
+- [x] **Módulo 28 (Novo):** Otimização de Performance (Índices Compostos Postgres), Cache In-Memory de 3s para Torre 2D e Fila Assíncrona Direct-to-SEFAZ.
+
 
 
 

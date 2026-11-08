@@ -302,3 +302,4 @@ def generate_audit_pdf(pdf_path, score, route_tests, chaos_tests, security_tests
 
 if __name__ == "__main__":
     run_stress_chaos_benchmark()
+

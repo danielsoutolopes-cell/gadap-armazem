@@ -6,6 +6,7 @@ from pydantic import BaseModel
 
 from app.core.supabase_client import supabase
 from app.core.auth import get_tenant_from_auth_header
+from app.core.cache import get_cache, set_cache
 
 router = APIRouter(prefix="/control-tower", tags=["Torre de Controle Logística"])
 
@@ -31,7 +32,12 @@ async def get_control_tower_metrics(
     """
     Retorna a capacidade estática e dinâmica do armazém,
     mapa 2D de calor por rua (aisle) e alertas de gargalos operacionais.
+    Otimizado com cache in-memory / Redis com TTL de 3 segundos.
     """
+    cache_key = f"tower_metrics_{str(tenant_id)}"
+    cached_data = get_cache(cache_key)
+    if cached_data:
+        return cached_data
     try:
         res = supabase.table("warehouse_positions")\
             .select("zone, aisle, rack, level, status")\
@@ -94,7 +100,7 @@ async def get_control_tower_metrics(
         }
     ]
 
-    return ControlTowerSummary(
+    result = ControlTowerSummary(
         total_positions=total,
         occupied_positions=occupied,
         empty_positions=empty,
@@ -102,4 +108,9 @@ async def get_control_tower_metrics(
         critical_alerts=alerts,
         aisles_heatmap=heatmap
     )
+
+    # Armazena em cache com TTL de 3 segundos para proteger o banco
+    set_cache(cache_key, result.dict(), ttl_seconds=3)
+
+    return result
 

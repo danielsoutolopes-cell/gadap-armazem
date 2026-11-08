@@ -12,6 +12,7 @@ from cryptography.hazmat.primitives.serialization import pkcs12
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.backends import default_backend
 from app.core.supabase_client import supabase as supabase_admin
+from app.core.fiscal_queue import fiscal_queue
 
 router = APIRouter(tags=["Motor Fiscal Nativo Direct-to-SEFAZ"])
 
@@ -319,9 +320,18 @@ async def emit_direct_to_sefaz(payload: DirectSefazEmitRequest):
     except Exception:
         pass
 
+    # Enfileiramento na fila assíncrona tolerante a falhas (RabbitMQ / In-Memory Worker)
+    async_job_id = await fiscal_queue.enqueue_invoice({
+        "invoice_number": n_nf,
+        "access_key": chave_acesso,
+        "environment": target_env,
+        "payload": payload.model_dump()
+    })
+
     return {
         "success": True,
         "engine": "DIRECT_TO_SEFAZ_NATIVE",
+        "async_queue_job_id": async_job_id,
         "environment": target_env,
         "sefaz_endpoint": sefaz_ws_url,
         "invoice_number": n_nf,
