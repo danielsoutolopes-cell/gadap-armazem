@@ -351,12 +351,35 @@ O DRE operacional consolida as rubricas de faturamento e custos específicos do 
 
 ---
 
+## 22. Catálogo Universal de Serviços Aduaneiros (EADI/Porto Seco) & SKUs Exclusivos por Cliente (Prompt 27)
+- **Base Mestra de Serviços Pré-Parametrizada:**
+  - O sistema já nasce populado com as operações fundamentais de Armazéns Gerais e Recintos Alfandegados:
+    1. *Armazenagem Decendial Ad Valorem:* 0,50% sobre o valor CIF da mercadoria (Item 11.04 LC 116 / CFOP 5906).
+    2. *Diária de Posição-Palete PBR Dry, Climatizada (15° a 25°C - Farmacêutico) e Frigorificada (-18° a -22°C).*
+    3. *Handling Inbound & Outbound por Tonelada Métrica:* Carga, descarga, conferência e estocagem.
+    4. *Desova Mecanizada de Containers 20ft e 40ft HC e Desova Manual:* Para estufagem e conferência de volumes fracionados.
+    5. *Serviços Aduaneiros em EADI:* Posicionamento para Vistoria da Receita Federal/MAPA/Anvisa, pesagem oficial em balança rodoviária, deslacração e controle preventivo de demurrage.
+    6. *Serviços de Valor Agregado (VAS):* Fornecimento de paletes PBR com tratamento HT (fitossanitário), aplicação de stretch automático, etiquetagem com LPN e montagem de kits promocionais.
+- **Isolamento Multi-Cliente & Códigos SKU Únicos:**
+  - Cada cliente depositante pode ter **SKUs de serviço específicos e exclusivos** (ex.: `SKU-SAMS-RETRABALHO`), invisíveis e inacessíveis para outras empresas do ecossistema.
+  - Tela de gestão em [`app/dashboard/cadastros/servicos/page.tsx`](file:///c:/gadap_wms/frontend/app/dashboard/cadastros/servicos/page.tsx) com filtro por escopo (Global do Armazém vs Exclusivo por Cliente), códigos fiscais da LC 116/03 e alíquotas de ISS.
+
+---
+
+## 23. Catálogo Oficial de Rubricas Trabalhistas e Previdenciárias (Tabela 03 eSocial)
+- **Todas as Rubricas da Legislação Brasileira Integradas:**
+  - **Proventos & Adicionais:** Salário Base (`001`), Insalubridade 10%/20%/40% (`101`-`103`), Periculosidade 30% (`104`), Horas Extras 50% e 100% (`105`/`106`), Adicional Noturno 20% e Hora Noturna Reduzida (`120`/`125`), Reflexo de DSR (`130`), Gratificação de Chefia (`140`), Diárias de Viagem (`150`) e Salário-Família (`160`).
+  - **Proventos Extraordinários:** Dissídio Coletivo Retroativo (`201`), Multa do Artigo 477 da CLT (`202`), Auxílio Creche (`203`), PLR semestral (`301`), Prêmios de Assiduidade (`305`) e Abono Pecuniário de Férias (`310`).
+  - **Descontos Legais & Benefícios:** INSS Tabela Progressiva (`501`), IRRF Retido na Fonte (`502`), Pensão Alimentícia Judicial (`510`), DSR por Falta (`540`), Atrasos (`545`), Vale-Transporte 6% (`520`), Vale-Alimentação PAT (`530`), Plano de Saúde e Coparticipação (`550`/`551`), Plano Odontológico (`555`), Seguro de Vida (`560`), Empréstimo Consignado (`570`), Mensalidade Sindical (`580`) e Adiantamento Quinzenal (`590`).
+
+---
+
 ## 📍 STATUS DO ROADMAP
 
 - [x] **Módulo 01-12:** Core WMS, LPNs, PWA de Doca, Torre 2D, Agendamento Inteligente via WhatsApp, Inventário ABC, Billing em Lote e Compras.
 - [x] **Módulo 13:** Autenticação e Seed de Superusuário (`danielsmlopes@hotmail.com`).
 - [x] **Módulo 14 & 23:** RBAC Corporativo Realista e Política Zero-Trust do Superadmin.
-- [x] **Módulo 15:** RH Completo CLT, Importação REP AFD (Portaria 671 MTE), Holerite PDF e Mensageria eSocial (S-2200/S-1200/S-1210).
+- [x] **Módulo 15:** RH Completo CLT, Catálogo Oficial de Rubricas eSocial, Importação REP AFD (Portaria 671 MTE), Holerite PDF e Integração Contas a Pagar (AP).
 - [x] **Módulo 16:** Motor de Contratos, Pricing Flexível por Regras e Simulador de Faturamento.
 - [x] **Módulo 17:** Relatórios Gerenciais, DRE Logístico, Curva ABC, RevPAR e IA "Ask the Data".
 - [x] **Módulo 18:** Qualidade QMS, FEFO/FIFO Regulatório e Bloqueio Preditivo de Validade vs Trânsito.
@@ -368,6 +391,8 @@ O DRE operacional consolida as rubricas de faturamento e custos específicos do 
 - [x] **Módulo 24:** Motor Fiscal Nativo Proprietário (Direct-to-SEFAZ), Cofre de Certificado Digital A1 com Criptografia AES-256 e Assinatura XML Nativa.
 - [x] **Módulo 25:** IA Tributária, Web Scraping Semanal de Legislação e Preparação Estrutural para a Reforma Tributária (IBS/CBS/IS).
 - [x] **Módulo 26:** Infraestrutura DevOps com GitHub Action Keep-Alive para Alta Disponibilidade do Banco Supabase.
+- [x] **Módulo 27 (Novo):** Catálogo Mestre de Serviços Aduaneiros (EADI/Porto Seco), Códigos Fiscais LC 116 / CFOP e Suporte a SKUs de Serviços Exclusivos por Cliente.
+
 
 
 
