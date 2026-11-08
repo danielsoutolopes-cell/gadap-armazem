@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: Ping Supabase REST Endpoint
         env:
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY || 'sb_publishable_qGn08MvpkoAg8PfqTU7iYQ_ZZHuLJlt' }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://qwihbotlqxpufqsbibvm.supabase.co' }}
         run: |
           echo "Disparando ping de keep-alive para o Supabase..."
           HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
