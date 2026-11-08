@@ -402,7 +402,8 @@ O DRE operacional consolida as rubricas de faturamento e custos específicos do 
 - [x] **Módulo 25:** IA Tributária, Web Scraping Semanal de Legislação e Preparação Estrutural para a Reforma Tributária (IBS/CBS/IS).
 - [x] **Módulo 26:** Infraestrutura DevOps com GitHub Action Keep-Alive para Alta Disponibilidade do Banco Supabase.
 - [x] **Módulo 27:** Catálogo Mestre de Serviços Aduaneiros (EADI/Porto Seco), Códigos Fiscais LC 116 / CFOP e Suporte a SKUs de Serviços Exclusivos por Cliente.
-- [x] **Módulo 28 (Novo):** Otimização de Performance (Índices Compostos Postgres), Cache In-Memory de 3s para Torre 2D e Fila Assíncrona Direct-to-SEFAZ.
+- [x] **Módulo 28:** Otimização de Performance (Índices Compostos Postgres), Cache In-Memory de 3s para Torre 2D e Fila Assíncrona Direct-to-SEFAZ.
+- [x] **Módulo 29 (Novo):** Manual Definitivo de Implantação e Migração Autônoma Zero-Stress (`MANUAL_DE_MIGRACAO_E_IMPLANTACAO_GADAP.md`), permitindo onboarding 100% self-service pelo cliente sem atritos técnicos.
 
 
 
