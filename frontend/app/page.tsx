@@ -16,7 +16,9 @@ import {
   ShoppingCart,
   LogIn,
   Users,
-  ShieldCheck
+  ShieldCheck,
+  Briefcase,
+  FileSpreadsheet
 } from "lucide-react";
 
 export default function HomePage() {
@@ -80,6 +82,40 @@ export default function HomePage() {
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               Console exclusivo para o Superusuário provisionar múltiplos armazéns gerais, CLIAs e operadores logísticos no SaaS com isolamento estrito de dados via RLS.
+            </p>
+          </Link>
+        </div>
+      </section>
+
+      {/* SEÇÃO RH INTELIGENTE: FOLHA DE PAGAMENTO CLT & ESOCIAL */}
+      <section className="space-y-3">
+        <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-indigo-500"></span> Recursos Humanos (CLT), Folha Inteligente & eSocial
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Link
+            href="/dashboard/rh/colaboradores"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-indigo-500 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <Briefcase className="w-6 h-6 text-indigo-400" />
+              <h3 className="text-base font-bold text-white">Prontuário de Colaboradores & Admissão S-2200</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Registro de empregados com CBO oficial, Matrícula eSocial, Importação em Lote via CSV e mensageria de admissão S-2200.
+            </p>
+          </Link>
+
+          <Link
+            href="/dashboard/rh/folha"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-emerald-500 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <DollarSign className="w-6 h-6 text-emerald-400" />
+              <h3 className="text-base font-bold text-white">Folha CLT, Holerite Oficial & RH Inteligente</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Cálculo com tabelas progressivas de INSS e IRRF, Horas Extras 50%/100%, DSR e gráfico preditivo de cruzamento de HE versus volume da doca.
             </p>
           </Link>
         </div>

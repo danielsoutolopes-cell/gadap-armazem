@@ -62,6 +62,8 @@ O Portal B2B (`app/portal-cliente/page.tsx`) oferece autoatendimento integral pa
 | **Autenticação Segura**| Portal / Login | `/login` | Supabase Auth, Toggle de Senha e Redirecionamento RBAC |
 | **Gestão de Usuários RBAC**| Painel Armazém | `/dashboard/configuracoes/usuarios` | Gestão de membros do armazém, papéis e convites |
 | **Console Superadmin**| SaaS Global | `/admin/empresas` | Gestão e provisionamento de Armazéns/Tenants |
+| **RH Colaboradores** | Gestão CLT | `/dashboard/rh/colaboradores` | Matrícula, CBO, Importação CSV e eSocial S-2200 |
+| **Folha & Holerites**| Folha CLT | `/dashboard/rh/folha` | INSS/IRRF progressivo, Horas Extras vs Doca, S-1200 |
 
 ---
 
@@ -106,5 +108,27 @@ O sistema implementa **Role-Based Access Control (RBAC)** estrito, com validaç�
 5. **`CLIENT` (Importador / Depositante B2B):**
    - Acesso exclusivo ao autoatendimento B2B (`/portal-cliente`).
    - Consulta restrita às suas próprias cargas estocadas e faturas geradas.
+
+---
+
+## 8. Módulo de Recursos Humanos, Folha CLT e Integração eSocial (Prompt 15)
+
+### 8.1. Motor de Cálculo Trabalhista (CLT Oficial)
+O motor de cálculo brasileiro aplica as regras vigentes do Ministério do Trabalho e da Receita Federal:
+- **Tabela Progressiva do INSS:** Aplicação em faixas móveis (7,5% a 14%) com incidência progressiva sobre o teto do RGPS.
+- **Tabela Progressiva do IRRF:** Cálculo após abatimento da contribuição previdenciária e dedução legal por dependente (R$ 189,59).
+- **Horas Extras de Doca (50% e 100%):** Valor hora apurado pelo divisor mensal 220h (`Salário Base / 220`), com acréscimo de 50% em dias úteis e 100% aos domingos e feriados.
+- **Reflexo em DSR (Descanso Semanal Remunerado):** Fórmula legal: `(Total de Horas Extras e Adicional Noturno / Dias Úteis) * Dias de Repouso/Feriados`.
+- **Vale-Transporte:** Desconto limitado ao teto legal de 6% sobre o salário básico.
+
+### 8.2. RH Inteligente: Horas Extras vs. Volume da Doca ("O Algo a Mais")
+- Algoritmo preditivo que cruza os apontamentos do espelho de ponto com a quantidade de lotes e containers recebidos por semana.
+- Detecção de gargalos operacionais: identifica se o excesso de horas extras é decorrente de sobreestadia de carretas no pátio ou atrasos aduaneiros na alfândega.
+
+### 8.3. Integração com o eSocial Simplificado (vS-1.2)
+- **Evento S-2200 (Admissão de Trabalhador):** Geração de payload estruturado (JSON/XML) com CBO oficial, matrícula, vínculos e remuneração.
+- **Evento S-1200 / S-1210 (Remuneração e Pagamentos):** Transmissão de rubricas detalhadas de vencimentos (`001`, `105`, `106`, `120`, `130`) e retenções fiscais (`501`, `502`, `520`).
+- **Holerite PDF Oficial:** Layout homologado com demonstrativo de bases de INSS/FGTS, depósito de 8% do empregador e canhoto para assinatura do trabalhador.
+
 
 
