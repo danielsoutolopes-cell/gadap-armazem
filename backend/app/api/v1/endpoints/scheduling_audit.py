@@ -63,12 +63,13 @@ async def parse_whatsapp_scheduling(
 
     # Tenta utilizar Gemini caso chave configurada
     gemini_key = os.getenv("GEMINI_API_KEY")
+    gemini_model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
     if gemini_key:
         try:
             import google.generativeai as genai
             genai.configure(api_key=gemini_key)
             model = genai.GenerativeModel(
-                model_name="gemini-1.5-flash",
+                model_name=gemini_model_name,
                 system_instruction=WHATSAPP_SCHEDULING_SYSTEM_PROMPT,
                 generation_config={"response_mime_type": "application/json"}
             )
