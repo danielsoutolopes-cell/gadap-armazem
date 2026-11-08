@@ -12,7 +12,8 @@ import {
   CreditCard,
   Tag,
   ArrowDownCircle,
-  ArrowUpCircle
+  ArrowUpCircle,
+  ShoppingCart
 } from "lucide-react";
 
 export default function HomePage() {
@@ -23,11 +24,45 @@ export default function HomePage() {
           GADAP Armazém • WMS & ERP Logístico
         </h1>
         <p className="text-sm text-slate-400">
-          Plataforma Integrada: Cadastros Base, Financeiro AP/AR, Doca Mobile, Torre 2D, Inventário ABC, TMS e Portal B2B
+          Plataforma Integrada: Cadastros Base, Suprimentos, Financeiro AP/AR, Doca Mobile, Torre 2D, Inventário ABC e Portal B2B
         </p>
       </header>
 
-      {/* SEÇÃO 0: FINANCEIRO BASE (AP/AR) (NOVA SEÇÃO) */}
+      {/* SEÇÃO 0: SUPRIMENTOS & COMPRAS INTERNAS (NOVA SEÇÃO) */}
+      <section className="space-y-3">
+        <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-amber-500"></span> Suprimentos & Compras Internas do Armazém
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Link
+            href="/dashboard/compras/pedidos"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-amber-500 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <ShoppingCart className="w-6 h-6 text-amber-400" />
+              <h3 className="text-base font-bold text-white">Pedidos de Compra (Insumos Doca & EPIs)</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Requisições de compra de bobinas de filme stretch, paletes vazios PBR, fitas adesivas e EPIs. Ao aprovar, gera título automático no Contas a Pagar.
+            </p>
+          </Link>
+
+          <Link
+            href="/dashboard/cadastros/servicos"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-amber-400 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <Tag className="w-6 h-6 text-amber-400" />
+              <h3 className="text-base font-bold text-white">Catálogo de Serviços & Tabela de Preços</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Precificação de paletização, aplicação de stretch e desova manual para repasse e cobrança imediata dos depositantes na doca.
+            </p>
+          </Link>
+        </div>
+      </section>
+
+      {/* SEÇÃO 1: FINANCEIRO BASE (AP/AR) */}
       <section className="space-y-3">
         <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400"></span> Financeiro Base & Gestão de Caixa (AP/AR)
@@ -42,7 +77,7 @@ export default function HomePage() {
               <h3 className="text-base font-bold text-white">Contas a Pagar (Despesas)</h3>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Gestão de despesas operacionais do armazém: concessionárias de energia/água, manutenção de empilhadeiras, aluguel e compra de paletes.
+              Gestão de despesas operacionais do armazém: concessionárias de energia/água, manutenção de empilhadeiras, aluguel e títulos de insumos.
             </p>
           </Link>
 
@@ -61,12 +96,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SEÇÃO 1: CADASTROS BASE & CRM */}
+      {/* SEÇÃO 2: CADASTROS BASE & CRM */}
       <section className="space-y-3">
         <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-indigo-400"></span> Cadastros Base & CRM Logístico
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Link
             href="/dashboard/cadastros/clientes"
             className="p-5 bg-slate-900 border border-slate-800 hover:border-indigo-500 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
@@ -92,23 +127,10 @@ export default function HomePage() {
               Frotas homologadas, transportadoras parceiras e fornecedores de embalagens, paletes e insumos de doca.
             </p>
           </Link>
-
-          <Link
-            href="/dashboard/cadastros/servicos"
-            className="p-5 bg-slate-900 border border-slate-800 hover:border-amber-400 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
-          >
-            <div className="flex items-center gap-3">
-              <Tag className="w-6 h-6 text-amber-400" />
-              <h3 className="text-base font-bold text-white">Tabela de Preços & Serviços</h3>
-            </div>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Catálogo tarifário oficial: diária decendial CIF, paletização PBR, stretch, desova manual e handling.
-            </p>
-          </Link>
         </div>
       </section>
 
-      {/* SEÇÃO 2: OPERAÇÃO DE CAMPO / DOCA (PWA) */}
+      {/* SEÇÃO 3: OPERAÇÃO DE CAMPO / DOCA (PWA) */}
       <section className="space-y-3">
         <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400"></span> Operação de Campo & Doca (Mobile-First)
@@ -142,7 +164,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SEÇÃO 3: TORRE DE CONTROLE & GESTÃO VISUAL DE PÁTIO */}
+      {/* SEÇÃO 4: TORRE DE CONTROLE & GESTÃO VISUAL DE PÁTIO */}
       <section className="space-y-3">
         <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-cyan-400"></span> Inteligência de Pátio & Monitoramento
@@ -189,7 +211,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SEÇÃO 4: SUPPLY CHAIN, ERP FISCAL & TMS */}
+      {/* SEÇÃO 5: SUPPLY CHAIN, ERP FISCAL & TMS */}
       <section className="space-y-3">
         <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-amber-400"></span> ERP Backoffice, TMS & Faturamento
@@ -236,7 +258,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SEÇÃO 5: CLIENTE EXTERNO B2B & ACADEMY */}
+      {/* SEÇÃO 6: CLIENTE EXTERNO B2B & ACADEMY */}
       <section className="space-y-3">
         <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-indigo-400"></span> Autoatendimento B2B & Onboarding
