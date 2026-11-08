@@ -9,7 +9,9 @@ import {
   ClipboardCheck, 
   Building2, 
   GraduationCap, 
-  CreditCard 
+  CreditCard,
+  Tag,
+  Users
 } from "lucide-react";
 
 export default function HomePage() {
@@ -20,9 +22,56 @@ export default function HomePage() {
           GADAP Armazém • WMS & ERP Logístico
         </h1>
         <p className="text-sm text-slate-400">
-          Plataforma Integrada: Doca Mobile, Torre de Controle 2D, Inventário ABC, TMS, Billing Fiscal e Portal B2B
+          Plataforma Integrada: Cadastros Base, Doca Mobile, Torre 2D, Inventário ABC, TMS, Billing Fiscal e Portal B2B
         </p>
       </header>
+
+      {/* SEÇÃO 0: CADASTROS BASE & CRM (NOVA SEÇÃO) */}
+      <section className="space-y-3">
+        <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-indigo-400"></span> Cadastros Base & CRM Logístico
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Link
+            href="/dashboard/cadastros/clientes"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-indigo-500 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <Building2 className="w-6 h-6 text-indigo-400" />
+              <h3 className="text-base font-bold text-white">Donos da Carga (Clientes)</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Cadastro e gestão contratual de depositantes e importadores habilitados para emissão e armazenagem.
+            </p>
+          </Link>
+
+          <Link
+            href="/dashboard/cadastros/fornecedores"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-cyan-400 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <Truck className="w-6 h-6 text-cyan-400" />
+              <h3 className="text-base font-bold text-white">Fornecedores & Transportadoras</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Frotas homologadas, transportadoras parceiras e fornecedores de embalagens, paletes e insumos de doca.
+            </p>
+          </Link>
+
+          <Link
+            href="/dashboard/cadastros/servicos"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-amber-400 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <Tag className="w-6 h-6 text-amber-400" />
+              <h3 className="text-base font-bold text-white">Tabela de Preços & Serviços</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Catálogo tarifário oficial: diária decendial CIF, paletização PBR, stretch, desova manual e handling.
+            </p>
+          </Link>
+        </div>
+      </section>
 
       {/* SEÇÃO 1: OPERAÇÃO DE CAMPO / DOCA (PWA) */}
       <section className="space-y-3">
@@ -39,7 +88,7 @@ export default function HomePage() {
               <h3 className="text-base font-bold text-white">Doca • Recebimento (PWA)</h3>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Conferência física na descarga, captura de avarias com câmera nativa (Zero-Storage) e faturamento de extras spot (paletização, filme stretch).
+              Conferência física na descarga, captura de avarias com câmera nativa (Zero-Storage) e faturamento de extras spot.
             </p>
           </Link>
 
@@ -52,7 +101,7 @@ export default function HomePage() {
               <h3 className="text-base font-bold text-white">Doca • Expedição & Checkout</h3>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Conferência cega por leitor de código de barras, separação de picking, lacres de portaria e emissão do Packing List oficial em PDF.
+              Conferência cega por leitor de código de barras, separação de picking, lacres de portaria e emissão do Packing List em PDF.
             </p>
           </Link>
         </div>

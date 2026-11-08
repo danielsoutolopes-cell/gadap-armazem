@@ -9,7 +9,8 @@ from app.api.v1.endpoints import (
     client_portal,
     inventory_audit,
     tms,
-    fiscal_billing
+    fiscal_billing,
+    crm
 )
 
 api_router = APIRouter()
@@ -24,3 +25,4 @@ api_router.include_router(inventory_audit.router, prefix="/logistics")
 api_router.include_router(tms.router, prefix="/logistics")
 api_router.include_router(fiscal_billing.router, prefix="/finance")
 api_router.include_router(client_portal.router, prefix="/b2b")
+api_router.include_router(crm.router, prefix="/crm")
