@@ -33,6 +33,13 @@ export default function FolhaHoleritePage() {
   const [overtime100Hours, setOvertime100Hours] = useState("6.0");
   const [nightHours, setNightHours] = useState("12.0");
   const [unjustifiedAbsences, setUnjustifiedAbsences] = useState("0");
+  const [healthPlan, setHealthPlan] = useState("185.00");
+  const [dentalPlan, setDentalPlan] = useState("32.50");
+  const [foodVoucher, setFoodVoucher] = useState("45.00");
+  const [dissidioRetroativo, setDissidioRetroativo] = useState("0.00");
+  const [plrAmount, setPlrAmount] = useState("0.00");
+  const [apIntegrated, setApIntegrated] = useState(true);
+  const [apSuccessNote, setApSuccessNote] = useState<string | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
   const [isExportingEsocial, setIsExportingEsocial] = useState(false);
   const [esocialFeedback, setEsocialFeedback] = useState<string | null>(null);
@@ -229,19 +236,19 @@ export default function FolhaHoleritePage() {
           </div>
         )}
 
-        {/* Barra de Ajuste de Variáveis da Doca (Horas Extras & Noturno) */}
+        {/* Barra de Variáveis e Descontos de Benefícios (Plano de Saúde, VT, VA, Dissídio e PLR) */}
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4 print:hidden">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
             <h2 className="text-xs font-bold uppercase tracking-wider text-white flex items-center gap-2">
               <Clock className="w-4 h-4 text-emerald-400" />
-              Apuração do Espelho de Ponto (Doca & Movimentação)
+              Variáveis da Folha, Benefícios & Integração Contas a Pagar (AP)
             </h2>
             <span className="text-[10px] text-slate-500 font-mono">Competência: {competence}</span>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
             <div className="space-y-1">
-              <label className="text-slate-400 font-semibold">Horas Extras 50% (Dias Úteis)</label>
+              <label className="text-slate-400 font-semibold">Horas Extras 50% (Doca)</label>
               <input
                 type="number"
                 step="0.5"
@@ -252,7 +259,7 @@ export default function FolhaHoleritePage() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-slate-400 font-semibold">Horas Extras 100% (Domingos/Feriados)</label>
+              <label className="text-slate-400 font-semibold">Horas Extras 100% (Domingos)</label>
               <input
                 type="number"
                 step="0.5"
@@ -273,15 +280,83 @@ export default function FolhaHoleritePage() {
               />
             </div>
 
-            <div className="flex items-end">
-              <button
-                onClick={recalculatePayroll}
-                disabled={isCalculating}
-                className="w-full py-2 px-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold uppercase transition-all"
-              >
-                {isCalculating ? "Calculando..." : "Recalcular Folha"}
-              </button>
+            <div className="space-y-1">
+              <label className="text-slate-400 font-semibold">Plano de Saúde (Bradesco/Unimed)</label>
+              <input
+                type="number"
+                step="1.0"
+                value={healthPlan}
+                onChange={(e) => setHealthPlan(e.target.value)}
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono outline-none focus:border-emerald-500"
+              />
             </div>
+
+            <div className="space-y-1">
+              <label className="text-slate-400 font-semibold">Plano Odontológico</label>
+              <input
+                type="number"
+                step="1.0"
+                value={dentalPlan}
+                onChange={(e) => setDentalPlan(e.target.value)}
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono outline-none focus:border-emerald-500"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-slate-400 font-semibold">Alimentação / Refeição (PAT)</label>
+              <input
+                type="number"
+                step="1.0"
+                value={foodVoucher}
+                onChange={(e) => setFoodVoucher(e.target.value)}
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono outline-none focus:border-emerald-500"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-purple-300 font-semibold">Dissídio Retroativo (CCT)</label>
+              <input
+                type="number"
+                step="10.0"
+                value={dissidioRetroativo}
+                onChange={(e) => setDissidioRetroativo(e.target.value)}
+                className="w-full bg-slate-950 border border-purple-500/40 rounded-xl px-3 py-2 text-white font-mono outline-none focus:border-purple-500"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-emerald-300 font-semibold">PLR (Participação Lucros)</label>
+              <input
+                type="number"
+                step="50.0"
+                value={plrAmount}
+                onChange={(e) => setPlrAmount(e.target.value)}
+                className="w-full bg-slate-950 border border-emerald-500/40 rounded-xl px-3 py-2 text-white font-mono outline-none focus:border-emerald-500"
+              />
+            </div>
+          </div>
+
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-800">
+            <div className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                id="apCheck"
+                checked={apIntegrated}
+                onChange={(e) => setApIntegrated(e.target.checked)}
+                className="w-4 h-4 rounded text-emerald-600 focus:ring-0 bg-slate-950 border-slate-700 cursor-pointer"
+              />
+              <label htmlFor="apCheck" className="text-xs text-slate-300 cursor-pointer select-none">
+                Lançar provisões automaticamente no <strong>Contas a Pagar (AP)</strong>: Salários Líquidos, Guias FGTS e DARF Previdenciária
+              </label>
+            </div>
+
+            <button
+              onClick={recalculatePayroll}
+              disabled={isCalculating}
+              className="py-2.5 px-6 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold uppercase transition-all shadow-md shadow-emerald-600/20 cursor-pointer shrink-0"
+            >
+              {isCalculating ? "Processando..." : "Recalcular & Atualizar AP"}
+            </button>
           </div>
         </div>
 

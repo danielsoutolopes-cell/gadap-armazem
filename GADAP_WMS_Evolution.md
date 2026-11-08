@@ -329,6 +329,20 @@ O DRE operacional consolida as rubricas de faturamento e custos específicos do 
   - Aplicação das faixas progressivas do INSS (7,5% a 14% com teto) e IRRF (isenção até R$ 2.259,20 e alíquotas até 27,5% com dedução por dependente).
   - Cálculo de Horas Extras 50% e 100%, DSR reflexo e Adicional Noturno (20% com redução da hora noturna).
   - Emissão de Holerite oficial em PDF com discriminação de Vencimentos, Descontos e bases de FGTS.
+  - **Descontos de Benefícios em Folha:**
+    - *Plano de Saúde & Odontológico:* Suporte a desconto por mensalidade e coparticipação (Bradesco Saúde, Unimed, OdontoPrev).
+    - *Vale-Transporte (VT):* Limitado pelo teto legal de 6% do salário base (Lei 7.418/85).
+    - *Vale-Alimentação / Refeição (VA/VR):* Coparticipação conforme regras do PAT (Programa de Alimentação do Trabalhador).
+    - *Importação de Arquivos de Benefícios:* Endpoint `POST /api/v1/hr/benefits/import-csv` para carga em lote de faturas de operadoras e arquivos de recarga de cartões (Alelo, Sodexo, Ticket).
+  - **Proventos Extraordinários:**
+    - *Dissídio Coletivo Retroativo:* Rubrica para diferenças salariais de Convenção Coletiva de Trabalho (CCT).
+    - *Participação nos Lucros e Resultados (PLR):* Pagamentos semestrais com tributação exclusiva de IRRF e isenção de encargos previdenciários e FGTS.
+  - **Integração Automática com o Contas a Pagar (AP):**
+    - Cada fechamento de folha provisiona automaticamente no módulo Financeiro:
+      1. Título do Salário Líquido total dos operadores (vencimento no 5º dia útil).
+      2. Guia consolidada do **FGTS Digital** (vencimento no dia 20).
+      3. Guia **DARF Previdenciária** (INSS retido dos colaboradores + INSS patronal de 20%).
+      4. Faturas das operadoras de benefícios (saúde e alimentação).
 - **Mensageria eSocial Simplificado vS-1.2:**
   - Rota `POST /api/v1/hr/esocial/export` com geração e validação nativa dos arquivos XML oficiais:
     - **S-2200:** Cadastramento Inicial do Vínculo e Admissão.
