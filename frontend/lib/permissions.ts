@@ -39,6 +39,7 @@ export const ROLE_PERMISSIONS: Record<Role, { label: string; allowedPrefixes: st
       "/dashboard/manutencao",
       "/dashboard/rh",
       "/dashboard/auditoria-sistema",
+      "/dashboard/privacidade-lgpd",
       "/dashboard/academy"
     ]
   },

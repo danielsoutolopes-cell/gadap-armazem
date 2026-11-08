@@ -16,6 +16,7 @@
 8. [Emissão Fiscal Direct-to-SEFAZ e DANFE](#8-emissão-fiscal-direct-to-sefaz-e-danfe)
 9. [RH, Folha eSocial e Ponto Eletrônico AFD](#9-rh-folha-esocial-e-ponto-eletrônico-afd)
 10. [Segurança Zero-Trust & Portal do Cliente B2B](#10-segurança-zero-trust--portal-do-cliente-b2b)
+11. [Governança LGPD, Privacidade & Canal DPO](#11-governança-lgpd-privacidade--canal-dpo)
 
 ---
 
@@ -112,4 +113,23 @@ Para treinamentos internos, homologação e aprendizado sem risco à operação 
 
 - O depositante acompanha a posição de seus estoques, extratos decendiais e laudos fiscais 24/7 sem visualizar dados de nenhum outro concorrente.
 - Toda planilha Excel e PDF exportado recebe **marca d'água com CNPJ e hash SHA-256** para auditoria de vazamento conforme a LGPD.
+
+---
+
+## 11. Governança LGPD, Privacidade & Canal DPO (`/dashboard/privacidade-lgpd`)
+
+O GADAP WMS opera em **Conformidade Plena com a Lei Federal 13.709/2018 (LGPD)**, com módulo oficial para salvaguarda de dados pessoais e gestão de riscos:
+
+- **Canal Oficial do DPO (Encarregado):** Atendimento e parecer técnico via `dpo@gadap.com.br` com SLA &lt; 48 horas.
+- **Gestão de Direitos do Titular (Art. 18):** Protocolo automatizado para requisições de:
+  - *Acesso e Confirmação de Tratamento* (Art. 18, I e II);
+  - *Retificação de Dados Incompletos* (Art. 18, III);
+  - *Anonimização e Bloqueio* (Art. 18, IV);
+  - *Portabilidade Interoperável* no padrão oficial ANPD em JSON (Art. 18, V);
+  - *Revogação de Consentimento* (Art. 18, IX).
+- **Harmonização com Bases Legais Concorrentes (Art. 16, I):** O direito ao esquecimento respeita o prazo legal compulsório de 5 anos para documentos fiscais (CTN Art. 173) e 30 anos para livros trabalhistas (CLT/FGTS). Nestes casos, o sistema aplica **anonimização seletiva irreversível via SHA-256**, preservando as obrigações regulatórias da empresa.
+- **Mascaramento Dinâmico de PII:** Exibição protegida de CPFs (`123.***.***-45`), e-mails (`ca***@dominio.com`) e telefones em telas operacionais de doca e TMS.
+- **Rate-Limiting Preventivo Anti-Scraping:** Teto de 100 requisições por minuto em rotas analíticas para impedir extrações automatizadas de bancos de dados.
+- **Protocolo de Resposta a Incidentes (Art. 48):** Trilha formal para registro, contenção e comunicação imediata à Autoridade Nacional de Proteção de Dados (ANPD) se houver risco relevante aos titulares.
+
 

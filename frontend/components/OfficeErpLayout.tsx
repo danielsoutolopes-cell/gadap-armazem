@@ -99,6 +99,7 @@ const navigationGroups: NavGroup[] = [
       { name: "Folha & Holerites eSocial", href: "/dashboard/rh/folha", icon: FileSpreadsheet },
       { name: "Organograma do Armazém", href: "/dashboard/configuracoes/usuarios", icon: User },
       { name: "Auditoria do Sistema & Logs", href: "/dashboard/auditoria-sistema", icon: Terminal, badge: "Live" },
+      { name: "Privacidade & DPO (LGPD)", href: "/dashboard/privacidade-lgpd", icon: ShieldCheck, badge: "LGPD" },
       { name: "Superadmin SaaS (Zero-Trust)", href: "/admin/empresas", icon: Lock },
       { name: "GADAP Academy (Manuais)", href: "/dashboard/academy", icon: FileText },
     ]

@@ -17,7 +17,9 @@ flowchart LR
     B --> C["3. Auditoria 3-Way"]
     C --> D["4. Torre 2D / Alocação"]
     D --> E["5. Emissão NF-e / DANFE"]
-    E --> F["6. Logout & Auto-Reset"]
+    E --> F["6. LGPD & Marca D'água"]
+    F --> G["7. Portal DPO / DSAR"]
+    G --> H["8. Logout & Auto-Reset"]
 ```
 
 ---
@@ -88,11 +90,25 @@ flowchart LR
 
 ---
 
-### 📝 Exercício 7: Finalização e Auto-Reset dos Dados
+### 📝 Exercício 7: Atendimento aos Direitos do Titular no Canal DPO
+1. Acesse **Gestão, RH & Qualidade > Privacidade & DPO (LGPD)** (`/dashboard/privacidade-lgpd`).
+2. Clique na aba **"Gestão de Direitos do Titular (DSAR - Art. 18)"**.
+3. Registre uma nova solicitação simulada:
+   - **Nome:** `Roberto Albuquerque`
+   - **CPF:** `111.222.333-44`
+   - **Tipo de Requerimento:** `Anonimização / Bloqueio (Art. 18, IV)`
+4. Clique em **"Protocolar Pedido"**.
+5. Observe a resposta imediata da esteira de privacidade:
+   - Aplicação de **Hash SHA-256 irreversível** para fins analíticos;
+   - Salvaguarda legal automática: manutenção dos dados fiscais vinculados às NFs emitidas pelo prazo compulsório de 5 anos (Art. 16, I da LGPD).
+
+---
+
+### 📝 Exercício 8: Finalização e Auto-Reset dos Dados
 1. No canto inferior esquerdo da barra lateral, clique no ícone vermelho de **Logout** (porta de saída).
 2. O sistema executará a limpeza em memória da empresa **TESTE LTDA**.
 3. Faça login novamente com `teste@teste` / `teste`.
-4. **Verificação de Sucesso:** Todo o estoque, pedidos e notas emitidas durante sua sessão de treino retornaram ao estado inicial padrão, deixando o laboratório 100% pronto para o próximo colaborador.
+4. **Verificação de Sucesso:** Todo o estoque, pedidos, notas e requisições emitidas durante sua sessão de treino retornaram ao estado inicial padrão, deixando o laboratório 100% pronto para o próximo colaborador.
 
 ---
 

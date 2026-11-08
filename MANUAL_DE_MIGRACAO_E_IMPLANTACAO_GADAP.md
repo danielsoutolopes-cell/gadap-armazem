@@ -168,6 +168,9 @@ O sistema permite imprimir o DANFE individual imediatamente após a autorizaçã
 #### **6. Como o sistema protege relatórios contra cópias não autorizadas (LGPD)?**
 Todas as planilhas Excel (`.xlsx`) e PDFs gerados contam com **Marca D'água Digital e Hash SHA-256 no rodapé**, carimbando o CNPJ da empresa, data/hora e identificador forense. Adicionalmente, há **Rate-Limiting de 100 req/min por empresa** para proteger o servidor contra scripts de extração massiva não supervisionada.
 
+#### **7. O sistema atende plenamente à LGPD e possui canal para o DPO?**
+Sim! O GADAP WMS possui uma central nativa de governança da privacidade em **Gestão, RH & Qualidade > Privacidade & DPO (LGPD)** (`/dashboard/privacidade-lgpd`). A ferramenta possui gestão completa dos Direitos do Titular (Art. 18 da LGPD), mapeamento de operações ROPA, protocolo de comunicação tempestiva de incidentes à ANPD (Art. 48) e conciliação legal entre o direito ao esquecimento e o prazo de guarda compulsória de 5 anos para documentos fiscais (Art. 16, I da LGPD).
+
 ---
 
 ### 📞 Suporte e Acompanhamento

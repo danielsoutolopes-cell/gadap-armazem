@@ -24,7 +24,8 @@ from app.api.v1.endpoints import (
     fiscal_engine,
     tax_radar,
     fiscal_native,
-    customs_services
+    customs_services,
+    lgpd_compliance
 )
 
 api_router = APIRouter()
@@ -54,3 +55,4 @@ api_router.include_router(fiscal_engine.router, prefix="/fiscal-core")
 api_router.include_router(tax_radar.router, prefix="/tax-intelligence")
 api_router.include_router(fiscal_native.router, prefix="/fiscal-native")
 api_router.include_router(customs_services.router, prefix="/customs-catalog")
+api_router.include_router(lgpd_compliance.router, prefix="/privacy-lgpd")
