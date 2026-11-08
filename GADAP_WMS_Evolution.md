@@ -56,3 +56,22 @@ O Portal B2B (`app/portal-cliente/page.tsx`) oferece autoatendimento integral pa
 | **Tarifação Recinto** | Dashboard | `/dashboard/billing` | Cálculo de armazenagem e monitor de Demurrage |
 | **Portal B2B** | Autoatendimento | `/portal-cliente` | Consulta de estoque e faturas do cliente final |
 | **Academy** | Treinamento | `/dashboard/academy` | Manuais e capacitação de operadores de campo |
+| **Cadastros CRM** | Escritório | `/dashboard/cadastros/*` | Gestão de Clientes, Fornecedores e Catálogo de Serviços |
+| **Financeiro AP/AR** | Escritório | `/dashboard/financeiro/*` | Contas a Pagar, Contas a Receber e Conciliação Pix |
+| **Compras / Suprimentos**| Escritório | `/dashboard/compras/pedidos` | Requisições de Insumos com integração automática no AP |
+| **Autenticação Segura**| Portal / Login | `/login` | Supabase Auth, Toggle de Senha e Redirecionamento RBAC |
+
+---
+
+## 6. Autenticação, Perfis e Superusuário (Prompt 13)
+
+### 6.1. Superadministrador Inicial
+O sistema conta com seed de autenticação via Supabase Auth e tabela `public.users`:
+- **E-mail:** `danielsmlopes@hotmail.com`
+- **Nível de Acesso:** `SUPERADMIN`
+- **Ambiente:** Acesso irrestrito a todos os galpões, cadastros fiscais, faturamento em lote e torre de controle.
+
+### 6.2. Tela Corporativa de Login (`/login`)
+- **Toggle Visibility:** Campo de senha protegido com botão de alternância (ícone de olho) para conferência de digitação.
+- **Integração de Sessão:** Token de autenticação persistido de forma segura com roteamento baseado em função (`SUPERADMIN`/`OPERATOR` direcionados para a Torre de Controle; `CLIENT` para o Portal B2B).
+

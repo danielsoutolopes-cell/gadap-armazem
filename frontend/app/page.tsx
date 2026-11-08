@@ -13,19 +13,31 @@ import {
   Tag,
   ArrowDownCircle,
   ArrowUpCircle,
-  ShoppingCart
+  ShoppingCart,
+  LogIn
 } from "lucide-react";
 
 export default function HomePage() {
   return (
     <main className="max-w-6xl mx-auto p-6 md:p-8 space-y-8 font-sans">
-      <header className="border-b border-slate-800 pb-6 text-center space-y-2">
-        <h1 className="text-3xl md:text-4xl font-black text-white uppercase tracking-wider">
-          GADAP Armazém • WMS & ERP Logístico
-        </h1>
-        <p className="text-sm text-slate-400">
-          Plataforma Integrada: Cadastros Base, Suprimentos, Financeiro AP/AR, Doca Mobile, Torre 2D, Inventário ABC e Portal B2B
-        </p>
+      <header className="border-b border-slate-800 pb-6 text-center space-y-4">
+        <div className="flex justify-between items-center max-w-5xl mx-auto">
+          <div className="text-left">
+            <h1 className="text-3xl md:text-4xl font-black text-white uppercase tracking-wider">
+              GADAP Armazém • WMS & ERP
+            </h1>
+            <p className="text-sm text-slate-400">
+              Plataforma Integrada: Cadastros Base, Suprimentos, Financeiro AP/AR, Doca Mobile, Torre 2D e Inventário ABC
+            </p>
+          </div>
+          <Link
+            href="/login"
+            className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg shadow-blue-600/20 transition-all hover:scale-105 shrink-0"
+          >
+            <LogIn className="w-4 h-4" />
+            <span>Área de Login</span>
+          </Link>
+        </div>
       </header>
 
       {/* SEÇÃO 0: SUPRIMENTOS & COMPRAS INTERNAS (NOVA SEÇÃO) */}
