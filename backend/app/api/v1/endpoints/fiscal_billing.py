@@ -11,7 +11,7 @@ router = APIRouter(prefix="/finance", tags=["Billing Final & Emissão Fiscal"])
 
 class CloseMonthBillingRequest(BaseModel):
     client_id: UUID
-    period_year_month: str = Field(..., regex=r"^\d{4}-\d{2}$") # '2026-11'
+    period_year_month: str = Field(..., pattern=r"^\d{4}-\d{2}$") # '2026-11'
     gateway_provider: str = Field(default="ASAAS") # ASAAS ou STRIPE
 
 @router.post("/billing/close-month")

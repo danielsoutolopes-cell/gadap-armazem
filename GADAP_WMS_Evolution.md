@@ -257,6 +257,46 @@ O DRE operacional consolida as rubricas de faturamento e custos específicos do 
 
 ---
 
+## 16. Onboarding do Armazém, Integração CNPJ e Base Jurídica (Prompt 22)
+- **Assistente de Onboarding Corporativo (`app/dashboard/configuracoes/empresa/page.tsx`):**
+  - **Consulta em Tempo Real de CNPJ:** Rota `GET /api/v1/tenant-setup/integrations/cnpj/{cnpj}` integrando a BrasilAPI e ReceitaWS com fallback resiliente, autopreenchendo Razão Social, Nome Fantasia, CNAE Fiscal, Natureza Jurídica, Endereço Completo e Quadro Societário (QSA).
+  - **Injeção de Logotipo:** Upload e armazenamento da identidade visual do galpão/armazém, injetada dinamicamente nos contratos e romaneios em PDF.
+  - **Painel de Representantes Legais (`legal_representatives`):** Cadastro de sócios administradores e procuradores com CPF, e-mail e cargo para a assinatura eletrônica de contratos comerciais e propostas B2B.
+
+---
+
+## 17. Central de Relatórios Setoriais 360º & Exportação Excel (Prompt 23)
+- **Motor de Dados com Pandas & Openpyxl (`app/dashboard/relatorios/exportacao/page.tsx`):**
+  - **Geração de Arquivos `.xlsx` Nativos e Estilizados:** Largura de colunas autoajustável, cabeçalhos congelados e tipagem estrita de datas e valores monetários.
+  - **Catálogo de Relatórios Disponíveis:**
+    1. *Estoque & Logística - Extrato de Movimentação:* Histórico completo de Inbound e Outbound por LPN, produto, peso, endereço e conferente.
+    2. *Estoque & Logística - SLA de Doca:* Tempos de espera, carga e descarga de carretas versus metas, identificando gargalos.
+    3. *Estoque & Logística - Posições Vazias:* Ocupação de porta-paletes por rua, nível e dias de vacância física.
+    4. *Financeiro - Inadimplência & Aging List:* Títulos vencidos agrupados por faixas (1-15, 16-30, 31-60 dias), cálculo de juros/multas e status.
+    5. *Financeiro - DRE Logística Detalhada:* Cruzamento de receitas operacionais contra custos de pessoal, energia, locação e manutenção CMMS.
+    6. *Compras Internas - Saving de Suprimentos:* Comparativo entre orçamentos médios e valores finais negociados.
+
+---
+
+## 18. Motor Fiscal Absoluto & Emissão NF-e / NFS-e (Prompt 24)
+- **Arquitetura Fiscal Integrada (`app/dashboard/fiscal/emissao/page.tsx`):**
+  - **Ambiente Parametrizado SEFAZ:** Toggle Switch global bem visível alternando entre **Homologação** (testes sem valor tributário) e **Produção** (validade jurídica).
+  - **Dropdowns Dinâmicos Vinculados:** Sem preenchimento manual; seleção conectada diretamente aos Clientes do CRM, Catálogo de Serviços, CFOPs regulatórios (`5905`, `5906`, `5907`, `6906`, `6907`) e NCMs cadastrados.
+  - **Validação Tributária Pré-Envio:** Rota `POST /api/v1/fiscal-core/fiscal/emit` que calcula PIS, COFINS, ISS e não-incidência de ICMS para emissão de NF-e Modelo 55 e NFS-e, com geração de Chave de Acesso de 44 dígitos e DANFE.
+
+---
+
+## 19. IA Tributária, Web Scraping e Nova Reforma Tributária Brasileira (Prompt 25)
+- **Radar Tributário da IA (`app/dashboard/fiscal/radar/page.tsx`):**
+  - **Web Scraping Semanal Automatizado:** Consulta periódica a portais oficiais (SEFAZ, Receita Federal, DOU) com sumarização jurídica via Google Gemini e cruzamento com as tabelas de tributação do armazém.
+  - **Preparação Nativa para o IVA Dual:** Suporte no schema de dados para os novos tributos constitucionais:
+    - **IBS (Imposto sobre Bens e Serviços):** Substitui ICMS e ISS com competência compartilhada entre Estados e Municípios (alíquota estimada de 17,50%).
+    - **CBS (Contribuição sobre Bens e Serviços):** Substitui PIS e COFINS no âmbito federal (alíquota padrão de 8,80% com crédito pleno).
+    - **IS (Imposto Seletivo):** Aplicação automatizada de "Sin Tax" (2,50%) sobre categorias reguladas armazenadas (bebidas alcoólicas e tabaco).
+  - **Botão "Aplicar Atualização" em 1 Clique:** O CFO aprova recomendações da IA que atualizam imediatamente a tabela `tax_rules`.
+
+---
+
 ## 📍 STATUS DO ROADMAP
 
 - [x] **Módulo 01-12:** Core WMS, LPNs, PWA de Doca, Torre 2D, Agendamento Inteligente via WhatsApp, Inventário ABC, Billing em Lote e Compras.
@@ -269,8 +309,11 @@ O DRE operacional consolida as rubricas de faturamento e custos específicos do 
 - [x] **Módulo 19:** CMMS Frotas, Horímetro com Gatilho a 250h e Manutenções Corretivas com Foto.
 - [x] **Módulo 20:** Conciliação OFX (Tinder Financeiro) e Exportação SPED EFD ICMS/IPI.
 - [x] **Módulo 21:** CRM B2B Logístico, Funil Kanban e Gerador de Propostas com IA (WhatsApp).
-- [x] **Módulo 22:** Recuperação e Redefinição de Senhas com Tokens Seguros.
-- [x] **Módulo 24:** UX/UI Profissional para ERP de Escritório Corporativo (Sidebar Persistente, Topbar com Breadcrumbs e Responsividade Desktop).
+- [x] **Módulo 22 (Novo):** Onboarding do Armazém, Integração CNPJ (BrasilAPI/ReceitaWS), Injeção de Logo e Procuradores Legais.
+- [x] **Módulo 23 (Novo):** Central de Relatórios Setoriais 360º com Geração Nativa de Planilhas Excel (`.xlsx` via Pandas/Openpyxl).
+- [x] **Módulo 24 (Novo):** Motor Fiscal Absoluto, Chave de Homologação/Produção e Emissão de NF-e/NFS-e Integrada.
+- [x] **Módulo 25 (Novo):** IA Tributária, Web Scraping Semanal de Legislação e Preparação Estrutural para a Reforma Tributária (IBS/CBS/IS).
+
 
 
 

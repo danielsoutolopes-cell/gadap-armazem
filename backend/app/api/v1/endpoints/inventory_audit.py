@@ -10,7 +10,7 @@ from app.core.auth import get_tenant_from_auth_header
 router = APIRouter(prefix="/inventory", tags=["Motor de Inventário Cego (ABC)"])
 
 class GenerateCycleCountRequest(BaseModel):
-    category: str = Field(default="A", regex="^[A-C]$")
+    category: str = Field(default="A", pattern="^[A-C]$")
     sample_size: int = Field(default=10, gt=0)
 
 class SubmitCountRequest(BaseModel):

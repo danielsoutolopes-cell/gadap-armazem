@@ -18,7 +18,11 @@ from app.api.v1.endpoints import (
     contracts_pricing,
     analytics_bi,
     advanced_modules,
-    zero_trust_rbac
+    zero_trust_rbac,
+    onboarding,
+    reports_export,
+    fiscal_engine,
+    tax_radar
 )
 
 api_router = APIRouter()
@@ -42,3 +46,7 @@ api_router.include_router(contracts_pricing.router, prefix="/pricing")
 api_router.include_router(analytics_bi.router, prefix="/analytics")
 api_router.include_router(advanced_modules.router, prefix="/enterprise")
 api_router.include_router(zero_trust_rbac.router, prefix="/zero-trust")
+api_router.include_router(onboarding.router, prefix="/tenant-setup")
+api_router.include_router(reports_export.router, prefix="/bi-export")
+api_router.include_router(fiscal_engine.router, prefix="/fiscal-core")
+api_router.include_router(tax_radar.router, prefix="/tax-intelligence")

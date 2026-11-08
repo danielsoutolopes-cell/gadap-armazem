@@ -62,8 +62,10 @@ const navigationGroups: NavGroup[] = [
   {
     label: "CONTROLADORIA & BILLING",
     items: [
+      { name: "Emissão Fiscal SEFAZ", href: "/dashboard/fiscal/emissao", icon: FileText, badge: "NF-e/NFS-e" },
+      { name: "Radar Tributário (IBS/CBS)", href: "/dashboard/fiscal/radar", icon: ShieldCheck, badge: "IA Radar" },
       { name: "Faturamento em Lote", href: "/dashboard/faturamento", icon: DollarSign },
-      { name: "Contratos & Pricing", href: "/dashboard/contratos", icon: Calculator, badge: "Novo" },
+      { name: "Contratos & Pricing", href: "/dashboard/contratos", icon: Calculator },
       { name: "Contas a Pagar (AP)", href: "/dashboard/financeiro/pagar", icon: CreditCard },
       { name: "Contas a Receber (AR)", href: "/dashboard/financeiro/receber", icon: DollarSign },
       { name: "Conciliação OFX & SPED", href: "/dashboard/financeiro/conciliacao", icon: FileCheck },
@@ -73,6 +75,7 @@ const navigationGroups: NavGroup[] = [
   {
     label: "CADASTROS & CRM",
     items: [
+      { name: "Setup Empresa & CNPJ", href: "/dashboard/configuracoes/empresa", icon: Building2, badge: "Setup" },
       { name: "Clientes Depositantes", href: "/dashboard/cadastros/clientes", icon: Building2 },
       { name: "Fornecedores & Transportes", href: "/dashboard/cadastros/fornecedores", icon: Truck },
       { name: "Catálogo de Serviços", href: "/dashboard/cadastros/servicos", icon: Layers },
@@ -83,6 +86,7 @@ const navigationGroups: NavGroup[] = [
   {
     label: "GESTÃO, RH & QUALIDADE",
     items: [
+      { name: "Central Relatórios Excel", href: "/dashboard/relatorios/exportacao", icon: FileSpreadsheet, badge: ".xlsx" },
       { name: "BI Estratégico & DRE", href: "/dashboard/relatorios", icon: BarChart3, badge: "Ask Data" },
       { name: "QMS • Qualidade & FEFO", href: "/dashboard/qualidade", icon: ShieldCheck },
       { name: "CMMS • Frotas & Ativos", href: "/dashboard/manutencao", icon: Wrench },
