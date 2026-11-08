@@ -65,6 +65,7 @@ O Portal B2B (`app/portal-cliente/page.tsx`) oferece autoatendimento integral pa
 | **RH Colaboradores** | Gestão CLT | `/dashboard/rh/colaboradores` | Matrícula, CBO, Importação CSV e eSocial S-2200 |
 | **Folha & Holerites**| Folha CLT | `/dashboard/rh/folha` | INSS/IRRF progressivo, Horas Extras vs Doca, S-1200 |
 | **Contratos & Pricing**| Billing Engine | `/dashboard/contratos` | Construtor Visual de Tarifas, Pró-rata e Simulador |
+| **Relatórios BI & DRE**| Inteligência | `/dashboard/relatorios` | DRE Gerencial, Curva ABC, RevPAR e Ask the Data (NLP) |
 
 ---
 
@@ -155,6 +156,33 @@ O motor calcula a armazenagem com precisão matemática:
 - Disponível na aba `/dashboard/contratos` para a equipe comercial testar cenários hipotéticos antes da celebração da proposta.
 - O gestor informa o perfil de carga (paletes, peso, dias previstos de armazenagem e serviços extras como filme stretch e desova manual).
 - O motor calcula instantaneamente o demonstrativo discriminado de rubricas e verifica se o subtotal atinge a franquia mínima contratual.
+
+---
+
+## 10. BI Estratégico, DRE Gerencial Logístico e IA "Ask the Data" (Prompt 17)
+
+### 10.1. DRE Gerencial Logístico (Receitas vs. Custos Diretos)
+O DRE operacional consolida as rubricas de faturamento e custos específicos do armazém:
+- **Receita Bruta Operacional:** Armazenagem pró-rata, Handling Inbound/Outbound e Serviços Extras spot (stretch/paletização).
+- **Deduções Tributárias:** Provisão de ISS municipal e PIS/COFINS.
+- **Custos Diretos Operacionais:** Despesas com folha da equipe de doca (CLT), adicionais de horas extras/noturno e consumo de insumos (bobinas de filme stretch e paletes vazios).
+- **Margem EBITDA:** Apuração de resultado operacional e eficiência de margem sobre a receita líquida.
+
+### 10.2. Curva ABC de Rentabilidade de Clientes (Depositantes)
+- Classificação dos clientes em Classes A, B e C cruzando receita gerada vs. custos de movimentação alocados.
+- Visibilidade sobre clientes que geram mais volume físico versus os que entregam maior margem de lucro líquido.
+
+### 10.3. Taxa de Ocupação vs. RevPAR (Revenue per Available Rack)
+- **Fórmula Oficial do RevPAR Logístico:**
+  $$\text{RevPAR} = \frac{\text{Receita Total de Armazenagem}}{\text{Total de Posições Físicas Existentes}}$$
+- Mede a monetização real de cada endereço do porta-paletes instalado no armazém (cheio ou vazio), permitindo à diretoria avaliar a ociosidade do ativo imobiliário.
+
+### 10.4. "O Algo a Mais": Ask the Data (NLP to SQL com Gemini)
+- Barra de pesquisa em linguagem natural alimentada pelo modelo oficial do Google Gemini.
+- O executivo formula perguntas livres como *"Qual foi o faturamento total em outubro?"* ou *"Qual o RevPAR atual?"*.
+- O motor traduz em consulta SQL estruturada e devolve o resumo sintetizado com painel de pré-visualização de dados.
+- Exportação nativa dos relatórios em formato estruturado `.csv` e compatível com Excel.
+
 
 
 

@@ -19,7 +19,9 @@ import {
   ShieldCheck,
   Briefcase,
   FileSpreadsheet,
-  Calculator
+  Calculator,
+  BarChart3,
+  PieChart
 } from "lucide-react";
 
 export default function HomePage() {
@@ -83,6 +85,40 @@ export default function HomePage() {
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               Console exclusivo para o Superusuário provisionar múltiplos armazéns gerais, CLIAs e operadores logísticos no SaaS com isolamento estrito de dados via RLS.
+            </p>
+          </Link>
+        </div>
+      </section>
+
+      {/* SEÇÃO BI & INTELIGÊNCIA: RELATÓRIOS ESTRATÉGICOS E ASK THE DATA */}
+      <section className="space-y-3">
+        <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-cyan-400"></span> BI, DRE Logístico & IA "Ask the Data" (NLP to SQL)
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Link
+            href="/dashboard/relatorios"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-cyan-400 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <BarChart3 className="w-6 h-6 text-cyan-400" />
+              <h3 className="text-base font-bold text-white">DRE Gerencial, Curva ABC & RevPAR</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Demonstrativo de resultado com receita bruta, deduções fiscais e margem EBITDA. Análise de rentabilidade de depositantes e RevPAR por posição instalada.
+            </p>
+          </Link>
+
+          <Link
+            href="/dashboard/relatorios"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-indigo-400 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <Sparkles className="w-6 h-6 text-indigo-400" />
+              <h3 className="text-base font-bold text-white">Ask the Data (Consultas NLP to SQL)</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Assistente de dados com inteligência artificial para responder perguntas em linguagem natural da diretoria e gerar consultas SQL analíticas em tempo real.
             </p>
           </Link>
         </div>
