@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { 
   Lock, 
@@ -149,7 +150,12 @@ export default function LoginPage() {
                 <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
                   Palavra-passe / Senha
                 </label>
-                <span className="text-[10px] text-slate-500">Mínimo 8 dígitos</span>
+                <Link
+                  href="/recuperar-senha"
+                  className="text-[11px] text-blue-400 hover:text-blue-300 transition-colors"
+                >
+                  Esqueci minha senha
+                </Link>
               </div>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">

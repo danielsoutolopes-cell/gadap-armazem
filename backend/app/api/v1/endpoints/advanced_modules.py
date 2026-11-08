@@ -474,3 +474,4 @@ Diretoria Comercial • GADAP Armazém WMS"""
         "proposal_text": proposal_letter,
         "whatsapp_share_url": f"https://api.whatsapp.com/send?text={proposal_letter[:200]}..."
     }
+

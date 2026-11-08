@@ -84,6 +84,11 @@ O sistema conta com seed de autenticação via Supabase Auth e tabela `public.us
 ### 6.2. Tela Corporativa de Login (`/login`)
 - **Toggle Visibility:** Campo de senha protegido com botão de alternância (ícone de olho) para conferência de digitação.
 - **Integração de Sessão:** Token de autenticação persistido de forma segura com roteamento baseado em função (`SUPERADMIN`/`OPERATOR` direcionados para a Torre de Controle; `CLIENT` para o Portal B2B).
+- **Recuperação de Credenciais:** Link direto *"Esqueci minha senha"* integrado com os fluxos `/recuperar-senha` e `/reset-password`.
+
+### 6.3. Fluxo de Recuperação e Redefinição de Senha
+1. **Solicitação do Link Seguro (`/recuperar-senha`):** O usuário informa seu e-mail corporativo. O sistema aciona o endpoint `/auth/v1/recover` do Supabase Auth para disparar o token/link mágico de redefinição.
+2. **Redefinição de Palavra-passe (`/reset-password`):** O usuário digita a nova senha com confirmação, validação de complexidade mínima (8 dígitos) e botão de alternância de visibilidade. A nova credencial é gravada criptograficamente no schema `auth.users`.
 
 ---
 

@@ -121,3 +121,4 @@ USING (company_id = public.get_current_tenant() OR public.get_current_user_role(
 DROP POLICY IF EXISTS "Tenant crm deals isolation" ON public.crm_deals;
 CREATE POLICY "Tenant crm deals isolation" ON public.crm_deals FOR ALL
 USING (company_id = public.get_current_tenant() OR public.get_current_user_role() = 'SUPERADMIN');
+
