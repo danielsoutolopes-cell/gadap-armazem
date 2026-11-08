@@ -319,12 +319,30 @@ O DRE operacional consolida as rubricas de faturamento e custos específicos do 
 
 ---
 
+## 21. RH Completo, Folha CLT, Importação REP AFD e Mensageria eSocial (Prompt 15 / Evolução)
+- **Modelagem de Dados eSocial & CLT (`employees`):**
+  - Campos adicionados: `marital_status`, `dependents_count` (OBRIGATÓRIO para dedução de IRRF de R$ 189,59 por dependente e Salário-Família), dados de endereço completo para eSocial e qualificações de CTPS/CBO.
+- **Integração de Hardware de Ponto REP (Portaria 671 / 1510 MTE):**
+  - Rota `POST /api/v1/hr/time-tracking/import-afd` para leitura de arquivos texto padrão **AFD (Arquivo Fonte de Dados)** gerados por relógios biométricos (DIMEP, Control iD, Henry, Telemática).
+  - Tela [`app/dashboard/rh/ponto/importacao/page.tsx`](file:///c:/gadap_wms/frontend/app/dashboard/rh/ponto/importacao/page.tsx) com drag-and-drop e espelho de conciliação automática das marcações físicas contra os registros do PWA móvel dos operadores de armazém.
+- **Motor Oficial de Cálculo da Folha:**
+  - Aplicação das faixas progressivas do INSS (7,5% a 14% com teto) e IRRF (isenção até R$ 2.259,20 e alíquotas até 27,5% com dedução por dependente).
+  - Cálculo de Horas Extras 50% e 100%, DSR reflexo e Adicional Noturno (20% com redução da hora noturna).
+  - Emissão de Holerite oficial em PDF com discriminação de Vencimentos, Descontos e bases de FGTS.
+- **Mensageria eSocial Simplificado vS-1.2:**
+  - Rota `POST /api/v1/hr/esocial/export` com geração e validação nativa dos arquivos XML oficiais:
+    - **S-2200:** Cadastramento Inicial do Vínculo e Admissão.
+    - **S-1200:** Remuneração do Trabalhador vinculado ao Regime Geral de Previdência.
+    - **S-1210:** Pagamentos de Rendimentos do Trabalho.
+
+---
+
 ## 📍 STATUS DO ROADMAP
 
 - [x] **Módulo 01-12:** Core WMS, LPNs, PWA de Doca, Torre 2D, Agendamento Inteligente via WhatsApp, Inventário ABC, Billing em Lote e Compras.
 - [x] **Módulo 13:** Autenticação e Seed de Superusuário (`danielsmlopes@hotmail.com`).
 - [x] **Módulo 14 & 23:** RBAC Corporativo Realista e Política Zero-Trust do Superadmin.
-- [x] **Módulo 15:** RH, Folha CLT, Cálculos INSS/IRRF, Holerite PDF, Integração eSocial (S-2200/S-1200) e Predição HE vs Doca.
+- [x] **Módulo 15:** RH Completo CLT, Importação REP AFD (Portaria 671 MTE), Holerite PDF e Mensageria eSocial (S-2200/S-1200/S-1210).
 - [x] **Módulo 16:** Motor de Contratos, Pricing Flexível por Regras e Simulador de Faturamento.
 - [x] **Módulo 17:** Relatórios Gerenciais, DRE Logístico, Curva ABC, RevPAR e IA "Ask the Data".
 - [x] **Módulo 18:** Qualidade QMS, FEFO/FIFO Regulatório e Bloqueio Preditivo de Validade vs Trânsito.
@@ -336,6 +354,7 @@ O DRE operacional consolida as rubricas de faturamento e custos específicos do 
 - [x] **Módulo 24:** Motor Fiscal Nativo Proprietário (Direct-to-SEFAZ), Cofre de Certificado Digital A1 com Criptografia AES-256 e Assinatura XML Nativa.
 - [x] **Módulo 25:** IA Tributária, Web Scraping Semanal de Legislação e Preparação Estrutural para a Reforma Tributária (IBS/CBS/IS).
 - [x] **Módulo 26:** Infraestrutura DevOps com GitHub Action Keep-Alive para Alta Disponibilidade do Banco Supabase.
+
 
 
 

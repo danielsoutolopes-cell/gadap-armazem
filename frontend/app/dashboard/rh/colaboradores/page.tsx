@@ -484,6 +484,45 @@ export default function ColaboradoresPage() {
 
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
+                    <label className="font-semibold text-slate-300 uppercase">Estado Civil</label>
+                    <select
+                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white outline-none focus:border-indigo-500"
+                    >
+                      <option value="SOLTEIRO">Solteiro(a)</option>
+                      <option value="CASADO">Casado(a)</option>
+                      <option value="UNIAO_ESTAVEL">União Estável</option>
+                      <option value="DIVORCIADO">Divorciado(a)</option>
+                      <option value="VIUVO">Viúvo(a)</option>
+                    </select>
+                  </div>
+                  <div className="space-y-1">
+                    <label className="font-semibold text-amber-300 uppercase flex items-center gap-1">
+                      <span>Dependentes (IRRF)</span>
+                      <span className="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.2 rounded font-mono">OBRIGATÓRIO</span>
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      max="15"
+                      defaultValue="0"
+                      className="w-full bg-slate-950 border border-amber-500/40 rounded-xl px-3 py-2 text-white font-mono font-bold outline-none focus:border-amber-500"
+                      title="Número de dependentes para dedução legal de IRRF (R$ 189,59/cada) e Salário-Família"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="font-semibold text-slate-300 uppercase">Endereço Residencial Completo (eSocial)</label>
+                  <input
+                    type="text"
+                    placeholder="Logradouro, Número, Complemento, Bairro, Cidade - UF, CEP"
+                    defaultValue="Av. Brasil, 1500 - Apto 32 - São Paulo - SP - CEP 01000-000"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white outline-none focus:border-indigo-500"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1">
                     <label className="font-semibold text-slate-300 uppercase">Cargo</label>
                     <input
                       type="text"

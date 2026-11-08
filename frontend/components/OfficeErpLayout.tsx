@@ -32,7 +32,8 @@ import {
   User,
   ExternalLink,
   Sparkles,
-  Lock
+  Lock,
+  Clock
 } from "lucide-react";
 
 interface NavGroup {
@@ -92,6 +93,7 @@ const navigationGroups: NavGroup[] = [
       { name: "QMS • Qualidade & FEFO", href: "/dashboard/qualidade", icon: ShieldCheck },
       { name: "CMMS • Frotas & Ativos", href: "/dashboard/manutencao", icon: Wrench },
       { name: "RH Colaboradores (CLT)", href: "/dashboard/rh/colaboradores", icon: Users },
+      { name: "Importação Ponto AFD (REP)", href: "/dashboard/rh/ponto/importacao", icon: Clock, badge: "Port. 671" },
       { name: "Folha & Holerites eSocial", href: "/dashboard/rh/folha", icon: FileSpreadsheet },
       { name: "Organograma do Armazém", href: "/dashboard/configuracoes/usuarios", icon: User },
       { name: "Superadmin SaaS (Zero-Trust)", href: "/admin/empresas", icon: Lock },
