@@ -168,3 +168,4 @@ async def report_incident(
         "registro": incident_record,
         "message": "Incidente registrado em compliance com Art. 48 da LGPD."
     }
+

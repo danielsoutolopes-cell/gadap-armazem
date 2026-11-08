@@ -440,3 +440,4 @@ def generate_pdf_report(results, output_path="RELATORIO_CONFORMIDADE_LGPD_TESTES
 if __name__ == "__main__":
     test_results = run_rigorous_tests()
     generate_pdf_report(test_results)
+

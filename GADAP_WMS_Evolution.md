@@ -451,6 +451,7 @@ O DRE operacional consolida as rubricas de faturamento e custos específicos do 
 - [x] **Módulo 33:** Tela Executiva de Auditoria do Sistema & Logs em Tempo Real (`/dashboard/auditoria-sistema`) com Stream de Telemetria Zero-Trust, métricas de saúde da infraestrutura (PostgreSQL/Supabase, Redis, SEFAZ, Rate-Limiters) e Health Check interativo.
 - [x] **Módulo 34:** Matriz de Hierarquias de Acesso por Perfil (RBAC), Provisionamento da Empresa Demonstração TESTE LTDA (`teste@teste` / `teste`) no GADAP Academy com Auto-Reset no Logout, criação do `MANUAL_DO_USUARIO.md` e do `ROTEIRO_DE_APRENDIZAGEM.md` com laboratórios práticos.
 - [x] **Módulo 35 (Entregue):** Governança e Conformidade Integral LGPD (Lei 13.709/2018), Canal Oficial DPO (`/dashboard/privacidade-lgpd`), Gestão de Direitos do Titular (DSAR - Art. 18), Anonimização Irreversível SHA-256 (Art. 12), Harmonização com Guarda Fiscal (Art. 16, I), Mascaramento Dinâmico de PII e Suíte de Testes Ultrarigorosos em 7 Vetores com Laudo em PDF Score 100/100 (`RELATORIO_CONFORMIDADE_LGPD_TESTES_SEGURANCA.pdf`).
+- [x] **Módulo 36 (Novo):** RH & HCM Enterprise no Padrão Top Market ERP (SAP SuccessFactors / TOTVS Protheus / Senior HCM): Motor de Férias CLT (1/3 Constitucional, Abono Pecuniário e Art. 145), Simulador de Rescisão TRCT com Aviso Prévio Proporcional (Lei 12.506/11) e Multa 40% FGTS, Hub de Mensageria eSocial A1 (S-1000 a S-2299), Livro Eletrônico de EPI com CA Válido (NR-06 MTE) e Gestão Inteligente de Banco de Horas com Alertas de Expiração de Acordo Coletivo.
 
 
 

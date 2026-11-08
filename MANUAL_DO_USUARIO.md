@@ -101,11 +101,33 @@ Para treinamentos internos, homologação e aprendizado sem risco à operação 
 
 ---
 
-## 9. RH, Folha eSocial e Ponto Eletrônico AFD (`/dashboard/rh/folha`)
+## 9. RH Enterprise, Folha eSocial, Ponto AFD e HCM (`/dashboard/rh/folha` e `/dashboard/rh/enterprise`)
 
-- **Importação Portaria 671 MTE:** Leitura do arquivo AFD (.txt) emitido por qualquer relógio de ponto físico.
-- **Tabelas Oficiais:** INSS e IRRF progressivos automáticos.
-- **DSR e Horas Extras:** Cálculo automático de DSR e integração dos descontos/proventos diretamente no Contas a Pagar (AP).
+O módulo de Recursos Humanos do GADAP WMS opera no mesmo padrão dos líderes globais e nacionais de HCM (SAP SuccessFactors, TOTVS Protheus e Senior HCM):
+
+- **Importação Portaria 671 MTE:** Leitura do arquivo AFD (.txt) emitido por qualquer relógio de ponto físico REP-C, REP-A ou REP-P.
+- **Tabelas Oficiais Vigentes:** Cálculo automático das alíquotas progressivas do INSS e deduções por dependente do IRRF.
+- **DSR e Horas Extras:** Cálculo automático de DSR sobre horas extras (50% e 100%), adicional noturno e integração dos encargos direto no Contas a Pagar (AP).
+- **Gestão de Férias CLT (Art. 129 a 153):**
+  - Controle automático de períodos aquisitivos e concessivos para evitar o pagamento de férias em dobro (Art. 137 CLT);
+  - Adicional de 1/3 Constitucional (Art. 7º, XVII da CF);
+  - Abono Pecuniário (venda legal de até 10 dias) com isenção de tributos;
+  - Adiantamento opcional da 1ª parcela do 13º salário;
+  - Alerta de prazo legal de pagamento em até 2 dias antes do início do descanso (Art. 145 CLT).
+- **Simulador e Motor de Rescisão Trabalhista (TRCT Homologado):**
+  - Dispensa sem justa causa, pedido de demissão, demissão com justa causa (Art. 482) e acordo mútuo da Reforma Trabalhista (Art. 484-A da CLT);
+  - Aviso Prévio Proporcional escalonado conforme a Lei 12.506/2011 (30 a 90 dias);
+  - Saldo de salário, 13º proporcional, férias vencidas e proporcionais com 1/3;
+  - Multa rescisória de 40% (ou 20% no acordo) do FGTS para geração da guia GRRF.
+- **Hub Oficial eSocial (Mensageria A1):**
+  - Rastreamento dos eventos cadastrais e contratuais (`S-2200`, `S-2205`, `S-2206`, `S-2299`);
+  - Eventos periódicos da folha (`S-1200`, `S-1210`, `S-1299`) com recibo oficial do Serpro;
+  - Eventos de Segurança e Saúde no Trabalho - SST (`S-2210` CAT, `S-2220` ASO e `S-2240` LTCAT).
+- **Medicina e Segurança do Trabalho (SST & EPI NR-06):**
+  - Ficha eletrônica de entrega de EPI com número de Certificado de Aprovação (CA) expedido pelo MTE e assinatura biométrica/digital;
+  - Controle de treinamentos obrigatórios (NR-11 Operador de Empilhadeira, NR-12 e NR-35 Trabalho em Altura).
+- **Banco de Horas Inteligente & Acordo Coletivo:**
+  - Extrato detalhado com alertas de compensação preventiva (30 dias antes do vencimento do prazo da CCT).
 
 ---
 

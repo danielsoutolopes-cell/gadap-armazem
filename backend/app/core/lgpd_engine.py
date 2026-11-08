@@ -112,3 +112,4 @@ LGPD_LEGAL_BASES = {
         "justificativa": "Guarda de logs de acesso a aplicações pelo prazo legal de 6 meses a 1 ano para rastreabilidade de incidentes."
     }
 }
+
