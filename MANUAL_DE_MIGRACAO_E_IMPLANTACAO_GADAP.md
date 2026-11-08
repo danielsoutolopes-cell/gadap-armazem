@@ -171,6 +171,7 @@ Todas as planilhas Excel (`.xlsx`) e PDFs gerados contam com **Marca D'água Dig
 ---
 
 ### 📞 Suporte e Acompanhamento
-- **Logs e Diagnóstico em Tempo Real:** Disponíveis em **Configurações > Auditoria do Sistema**.
-- **Testes de Resiliência:** Execute periodicamente a suíte de auditoria (`python scripts/run_stress_chaos_benchmark.py`) para verificar o score de saúde do seu ambiente.
+- **Logs e Diagnóstico em Tempo Real:** Disponíveis no menu lateral em **Gestão, RH & Qualidade > Auditoria do Sistema & Logs** (rota `/dashboard/auditoria-sistema`), onde é possível acompanhar o fluxo ao vivo de logs, status de conexões, latências de banco/cache e executar health checks automáticos com um clique.
+- **Auditoria Aduaneira e 3-Way Match:** Disponível em **Torre & Operações > Auditoria 3-Way Match** (rota `/dashboard/auditoria`) para confronto físico vs fiscal de DI/NF.
+- **Testes de Resiliência via Terminal:** Execute a suíte de auditoria (`python scripts/run_stress_chaos_benchmark.py` e `python scripts/run_multi_tenant_security_audit.py`) para gerar os laudos técnicos em PDF com Score 100/100.
 

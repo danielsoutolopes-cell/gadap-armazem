@@ -33,7 +33,8 @@ import {
   ExternalLink,
   Sparkles,
   Lock,
-  Clock
+  Clock,
+  Terminal
 } from "lucide-react";
 
 interface NavGroup {
@@ -96,6 +97,7 @@ const navigationGroups: NavGroup[] = [
       { name: "Importação Ponto AFD (REP)", href: "/dashboard/rh/ponto/importacao", icon: Clock, badge: "Port. 671" },
       { name: "Folha & Holerites eSocial", href: "/dashboard/rh/folha", icon: FileSpreadsheet },
       { name: "Organograma do Armazém", href: "/dashboard/configuracoes/usuarios", icon: User },
+      { name: "Auditoria do Sistema & Logs", href: "/dashboard/auditoria-sistema", icon: Terminal, badge: "Live" },
       { name: "Superadmin SaaS (Zero-Trust)", href: "/admin/empresas", icon: Lock },
       { name: "GADAP Academy (Manuais)", href: "/dashboard/academy", icon: FileText },
     ]
