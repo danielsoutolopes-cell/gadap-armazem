@@ -1,0 +1,31 @@
+name: Supabase Keep-Alive
+
+on:
+  schedule:
+    # Executa a cada 3 dias às 00:00 UTC para evitar que o projeto seja pausado por inatividade
+    - cron: '0 0 */3 * *'
+  workflow_dispatch: # Permite disparo manual via interface do GitHub Actions
+
+jobs:
+  keep-alive:
+    name: Ping Supabase REST API
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST Endpoint
+        run: |
+          echo "Disparando ping de keep-alive para o Supabase..."
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/")
+          
+          echo "Status HTTP Retornado: $HTTP_STATUS"
+          
+          if [ "$HTTP_STATUS" -eq 200 ] || [ "$HTTP_STATUS" -eq 301 ] || [ "$HTTP_STATUS" -eq 404 ]; then
+            echo "✅ Supabase está acordado e respondendo normalmente!"
+            exit 0
+          else
+            echo "❌ Falha no ping de keep-alive. Código HTTP: $HTTP_STATUS"
+            exit 1
+          fi
+

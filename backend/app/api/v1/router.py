@@ -22,7 +22,8 @@ from app.api.v1.endpoints import (
     onboarding,
     reports_export,
     fiscal_engine,
-    tax_radar
+    tax_radar,
+    fiscal_native
 )
 
 api_router = APIRouter()
@@ -50,3 +51,4 @@ api_router.include_router(onboarding.router, prefix="/tenant-setup")
 api_router.include_router(reports_export.router, prefix="/bi-export")
 api_router.include_router(fiscal_engine.router, prefix="/fiscal-core")
 api_router.include_router(tax_radar.router, prefix="/tax-intelligence")
+api_router.include_router(fiscal_native.router, prefix="/fiscal-native")

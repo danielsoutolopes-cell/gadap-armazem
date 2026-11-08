@@ -278,11 +278,21 @@ O DRE operacional consolida as rubricas de faturamento e custos específicos do 
 
 ---
 
-## 18. Motor Fiscal Absoluto & Emissão NF-e / NFS-e (Prompt 24)
-- **Arquitetura Fiscal Integrada (`app/dashboard/fiscal/emissao/page.tsx`):**
-  - **Ambiente Parametrizado SEFAZ:** Toggle Switch global bem visível alternando entre **Homologação** (testes sem valor tributário) e **Produção** (validade jurídica).
-  - **Dropdowns Dinâmicos Vinculados:** Sem preenchimento manual; seleção conectada diretamente aos Clientes do CRM, Catálogo de Serviços, CFOPs regulatórios (`5905`, `5906`, `5907`, `6906`, `6907`) e NCMs cadastrados.
-  - **Validação Tributária Pré-Envio:** Rota `POST /api/v1/fiscal-core/fiscal/emit` que calcula PIS, COFINS, ISS e não-incidência de ICMS para emissão de NF-e Modelo 55 e NFS-e, com geração de Chave de Acesso de 44 dígitos e DANFE.
+## 18. Motor Fiscal Nativo, Cofre de Certificados A1 & Mensageria Própria (Direct-to-SEFAZ) (Prompt 24)
+- **Arquitetura Fiscal 100% Proprietária:**
+  - O GADAP ERP opera com mensageria e gerador XML nativo (Layout 4.00), eliminando intermediários pagos ou dependências de terceiros.
+  - **Cofre Criptografado de Certificados (`app/dashboard/fiscal/configuracao/page.tsx`):**
+    - Armazena arquivos `.pfx`/`.p12` de Certificados A1 (ICP-Brasil) e senhas protegidas via algoritmo AES-256 no banco de dados.
+    - Tooltips detalham a finalidade das chaves criptográficas e padrões do PKCS#12.
+  - **Assinatura e Transmissão Direct-to-SEFAZ:**
+    - Assinatura digital direta do nó `<infNFe>` utilizando `cryptography` e `signxml` (padrão RSA-SHA1 / Enveloped Signature).
+    - Conexão direta aos webservices oficiais da SEFAZ (SOAP/REST) com chaveamento automático de ambiente:
+      - *Homologação:* `https://homologacao.nfe.fazenda.sp.gov.br/ws/nfeautorizacao4.asmx`
+      - *Produção:* `https://nfe.fazenda.sp.gov.br/ws/nfeautorizacao4.asmx`
+  - **Tela de Emissão (`app/dashboard/fiscal/emissao/page.tsx`):**
+    - Toggle Switch global Homologação vs Produção.
+    - Dropdowns dinâmicos sincronizados com o CRM, contratos e tabelas paramétricas de CFOP/NCM.
+    - Modal integrado para auditoria imediata do XML assinado antes do download.
 
 ---
 
@@ -294,6 +304,18 @@ O DRE operacional consolida as rubricas de faturamento e custos específicos do 
     - **CBS (Contribuição sobre Bens e Serviços):** Substitui PIS e COFINS no âmbito federal (alíquota padrão de 8,80% com crédito pleno).
     - **IS (Imposto Seletivo):** Aplicação automatizada de "Sin Tax" (2,50%) sobre categorias reguladas armazenadas (bebidas alcoólicas e tabaco).
   - **Botão "Aplicar Atualização" em 1 Clique:** O CFO aprova recomendações da IA que atualizam imediatamente a tabela `tax_rules`.
+
+---
+
+## 20. Infraestrutura e DevOps: GitHub Action Keep-Alive (Prompt 26)
+- **Garantia de Alta Disponibilidade (Supabase Keep-Alive):**
+  - Workflow automatizado em `.github/workflows/supabase-keep-alive.yml`.
+  - Agendamento CRON a cada 3 dias (`0 0 */3 * *`) e suporte a execução sob demanda via `workflow_dispatch`.
+  - Disparo de requisição `curl` para a REST API do Supabase (`/rest/v1/`), validando o status HTTP 200 para evitar suspensão de instâncias por inatividade.
+  - **Configuração Obrigatória no GitHub:**
+    - O administrador do armazém deve acessar o repositório no **GitHub > Settings > Secrets and variables > Actions** e cadastrar os segredos:
+      - `SUPABASE_URL`: Endpoint REST oficial do projeto (ex: `https://xyz.supabase.co`).
+      - `SUPABASE_ANON_KEY`: Chave anônima / pública de autenticação.
 
 ---
 
@@ -309,10 +331,12 @@ O DRE operacional consolida as rubricas de faturamento e custos específicos do 
 - [x] **Módulo 19:** CMMS Frotas, Horímetro com Gatilho a 250h e Manutenções Corretivas com Foto.
 - [x] **Módulo 20:** Conciliação OFX (Tinder Financeiro) e Exportação SPED EFD ICMS/IPI.
 - [x] **Módulo 21:** CRM B2B Logístico, Funil Kanban e Gerador de Propostas com IA (WhatsApp).
-- [x] **Módulo 22 (Novo):** Onboarding do Armazém, Integração CNPJ (BrasilAPI/ReceitaWS), Injeção de Logo e Procuradores Legais.
-- [x] **Módulo 23 (Novo):** Central de Relatórios Setoriais 360º com Geração Nativa de Planilhas Excel (`.xlsx` via Pandas/Openpyxl).
-- [x] **Módulo 24 (Novo):** Motor Fiscal Absoluto, Chave de Homologação/Produção e Emissão de NF-e/NFS-e Integrada.
-- [x] **Módulo 25 (Novo):** IA Tributária, Web Scraping Semanal de Legislação e Preparação Estrutural para a Reforma Tributária (IBS/CBS/IS).
+- [x] **Módulo 22:** Onboarding do Armazém, Integração CNPJ (BrasilAPI/ReceitaWS), Injeção de Logo e Procuradores Legais.
+- [x] **Módulo 23:** Central de Relatórios Setoriais 360º com Geração Nativa de Planilhas Excel (`.xlsx` via Pandas/Openpyxl).
+- [x] **Módulo 24:** Motor Fiscal Nativo Proprietário (Direct-to-SEFAZ), Cofre de Certificado Digital A1 com Criptografia AES-256 e Assinatura XML Nativa.
+- [x] **Módulo 25:** IA Tributária, Web Scraping Semanal de Legislação e Preparação Estrutural para a Reforma Tributária (IBS/CBS/IS).
+- [x] **Módulo 26:** Infraestrutura DevOps com GitHub Action Keep-Alive para Alta Disponibilidade do Banco Supabase.
+
 
 
 

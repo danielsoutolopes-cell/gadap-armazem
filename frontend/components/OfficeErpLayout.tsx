@@ -62,7 +62,8 @@ const navigationGroups: NavGroup[] = [
   {
     label: "CONTROLADORIA & BILLING",
     items: [
-      { name: "Emissão Fiscal SEFAZ", href: "/dashboard/fiscal/emissao", icon: FileText, badge: "NF-e/NFS-e" },
+      { name: "Emissão Direct-to-SEFAZ", href: "/dashboard/fiscal/emissao", icon: FileText, badge: "Nativo" },
+      { name: "Cofre Certificado A1", href: "/dashboard/fiscal/configuracao", icon: Lock, badge: "A1" },
       { name: "Radar Tributário (IBS/CBS)", href: "/dashboard/fiscal/radar", icon: ShieldCheck, badge: "IA Radar" },
       { name: "Faturamento em Lote", href: "/dashboard/faturamento", icon: DollarSign },
       { name: "Contratos & Pricing", href: "/dashboard/contratos", icon: Calculator },
