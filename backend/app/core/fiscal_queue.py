@@ -56,3 +56,4 @@ class FiscalAsyncQueueManager:
                 await asyncio.sleep(0.1)
 
 fiscal_queue = FiscalAsyncQueueManager()
+

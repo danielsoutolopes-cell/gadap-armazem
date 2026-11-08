@@ -26,3 +26,4 @@ CREATE INDEX IF NOT EXISTS idx_fiscal_invoices_created_env
 
 CREATE INDEX IF NOT EXISTS idx_time_tracking_emp_date
   ON public.time_tracking(employee_id, timestamp DESC);
+

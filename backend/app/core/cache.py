@@ -44,3 +44,4 @@ def set_cache(key: str, data: Any, ttl_seconds: int = 3) -> None:
 
     # Fallback local in-memory
     _LOCAL_MEMORY_CACHE[key] = (time.time() + ttl_seconds, data)
+
