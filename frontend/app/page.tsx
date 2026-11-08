@@ -11,7 +11,8 @@ import {
   GraduationCap, 
   CreditCard,
   Tag,
-  Users
+  ArrowDownCircle,
+  ArrowUpCircle
 } from "lucide-react";
 
 export default function HomePage() {
@@ -22,11 +23,45 @@ export default function HomePage() {
           GADAP Armazém • WMS & ERP Logístico
         </h1>
         <p className="text-sm text-slate-400">
-          Plataforma Integrada: Cadastros Base, Doca Mobile, Torre 2D, Inventário ABC, TMS, Billing Fiscal e Portal B2B
+          Plataforma Integrada: Cadastros Base, Financeiro AP/AR, Doca Mobile, Torre 2D, Inventário ABC, TMS e Portal B2B
         </p>
       </header>
 
-      {/* SEÇÃO 0: CADASTROS BASE & CRM (NOVA SEÇÃO) */}
+      {/* SEÇÃO 0: FINANCEIRO BASE (AP/AR) (NOVA SEÇÃO) */}
+      <section className="space-y-3">
+        <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-emerald-400"></span> Financeiro Base & Gestão de Caixa (AP/AR)
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Link
+            href="/dashboard/financeiro/pagar"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-rose-500 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <ArrowDownCircle className="w-6 h-6 text-rose-500" />
+              <h3 className="text-base font-bold text-white">Contas a Pagar (Despesas)</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Gestão de despesas operacionais do armazém: concessionárias de energia/água, manutenção de empilhadeiras, aluguel e compra de paletes.
+            </p>
+          </Link>
+
+          <Link
+            href="/dashboard/financeiro/receber"
+            className="p-5 bg-slate-900 border border-slate-800 hover:border-emerald-500 rounded-2xl space-y-2 transition-all hover:scale-[1.01] block shadow-lg"
+          >
+            <div className="flex items-center gap-3">
+              <ArrowUpCircle className="w-6 h-6 text-emerald-400" />
+              <h3 className="text-base font-bold text-white">Contas a Receber (Clientes)</h3>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Cobranças de armazenagem decendial, handling de carga, paletização spot e controle de conciliação com QR Code Pix.
+            </p>
+          </Link>
+        </div>
+      </section>
+
+      {/* SEÇÃO 1: CADASTROS BASE & CRM */}
       <section className="space-y-3">
         <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-indigo-400"></span> Cadastros Base & CRM Logístico
@@ -51,7 +86,7 @@ export default function HomePage() {
           >
             <div className="flex items-center gap-3">
               <Truck className="w-6 h-6 text-cyan-400" />
-              <h3 className="text-base font-bold text-white">Fornecedores & Transportadoras</h3>
+              <h3 className="text-base font-bold text-white">Fornecedores & Frotas</h3>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               Frotas homologadas, transportadoras parceiras e fornecedores de embalagens, paletes e insumos de doca.
@@ -73,7 +108,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SEÇÃO 1: OPERAÇÃO DE CAMPO / DOCA (PWA) */}
+      {/* SEÇÃO 2: OPERAÇÃO DE CAMPO / DOCA (PWA) */}
       <section className="space-y-3">
         <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400"></span> Operação de Campo & Doca (Mobile-First)
@@ -107,7 +142,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SEÇÃO 2: TORRE DE CONTROLE & GESTÃO VISUAL DE PÁTIO */}
+      {/* SEÇÃO 3: TORRE DE CONTROLE & GESTÃO VISUAL DE PÁTIO */}
       <section className="space-y-3">
         <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-cyan-400"></span> Inteligência de Pátio & Monitoramento
@@ -154,7 +189,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SEÇÃO 3: SUPPLY CHAIN, ERP FISCAL & TMS */}
+      {/* SEÇÃO 4: SUPPLY CHAIN, ERP FISCAL & TMS */}
       <section className="space-y-3">
         <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-amber-400"></span> ERP Backoffice, TMS & Faturamento
@@ -201,7 +236,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SEÇÃO 4: CLIENTE EXTERNO B2B & ACADEMY */}
+      {/* SEÇÃO 5: CLIENTE EXTERNO B2B & ACADEMY */}
       <section className="space-y-3">
         <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-indigo-400"></span> Autoatendimento B2B & Onboarding
