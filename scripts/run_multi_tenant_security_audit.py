@@ -299,3 +299,4 @@ def generate_security_pdf(results, score):
 
 if __name__ == "__main__":
     run_multi_tenant_security_audit()
+

@@ -82,3 +82,4 @@ CREATE POLICY tenant_isolation_stock_movements ON stock_movements
     FOR ALL
     USING (tenant_id = public.get_current_tenant())
     WITH CHECK (tenant_id = public.get_current_tenant());
+

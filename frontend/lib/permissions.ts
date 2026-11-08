@@ -138,3 +138,4 @@ export function resetDemoTenantState() {
     localStorage.setItem("gadap_demo_state", JSON.stringify(INITIAL_DEMO_DATA));
   }
 }
+

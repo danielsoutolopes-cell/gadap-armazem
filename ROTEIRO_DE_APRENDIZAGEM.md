@@ -98,3 +98,4 @@ flowchart LR
 
 ### 🏆 Parabéns!
 Ao concluir este roteiro, você estará apto a operar as principais ferramentas logísticas, tributárias e operacionais do ecossistema GADAP Armazém.
+

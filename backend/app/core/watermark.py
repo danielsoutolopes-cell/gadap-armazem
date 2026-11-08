@@ -39,3 +39,4 @@ def generate_watermark_metadata(tenant_id: UUID, report_name: str) -> Dict[str, 
         "sha256_hash": sha256_hash,
         "watermark_text": f"DOCUMENTO AUDITADO (LGPD) | EMPRESA: {tenant_info['name']} (CNPJ: {tenant_info['cnpj']}) | HASH SHA-256: {sha256_hash[:16]}...{sha256_hash[-8:]} | EMISSÃO: {timestamp_str}"
     }
+

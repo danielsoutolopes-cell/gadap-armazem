@@ -35,3 +35,4 @@ def check_tenant_export_rate_limit(tenant_id: UUID, max_requests: int = 100, win
     _TENANT_REQUEST_TIMESTAMPS[t_key].append(now)
     remaining = max_requests - (current_count + 1)
     return True, remaining
+

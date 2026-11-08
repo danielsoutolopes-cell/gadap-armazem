@@ -112,3 +112,4 @@ Para treinamentos internos, homologação e aprendizado sem risco à operação 
 
 - O depositante acompanha a posição de seus estoques, extratos decendiais e laudos fiscais 24/7 sem visualizar dados de nenhum outro concorrente.
 - Toda planilha Excel e PDF exportado recebe **marca d'água com CNPJ e hash SHA-256** para auditoria de vazamento conforme a LGPD.
+
